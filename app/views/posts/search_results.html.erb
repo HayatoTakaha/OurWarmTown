@@ -1,2 +1,8 @@
-<h1>Posts#search_results</h1>
-<p>Find me in app/views/posts/search_results.html.erb</p>
+<h1>検索結果</h1>
+<% @posts.each do |post| %>
+  <div class="post">
+    <h2><%= link_to post.title, post %></h2>
+    <p><%= truncate(post.content, length: 100) %></p>
+  </div>
+<% end %>
+<%= link_to '検索に戻る', search_posts_path, class: 'btn btn-primary' %>

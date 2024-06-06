@@ -1,2 +1,8 @@
-<h1>Posts#search</h1>
-<p>Find me in app/views/posts/search.html.erb</p>
+<h1>投稿検索</h1>
+<%= form_tag search_results_posts_path, method: :get do %>
+  <div class="form-group">
+    <%= label_tag :q, 'キーワード' %>
+    <%= text_field_tag :q, params[:q], class: 'form-control' %>
+  </div>
+  <%= submit_tag '検索', class: 'btn btn-primary' %>
+<% end %>
