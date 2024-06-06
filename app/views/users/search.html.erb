@@ -1,2 +1,8 @@
-<h1>Users#search</h1>
-<p>Find me in app/views/users/search.html.erb</p>
+<h1>ユーザー検索</h1>
+<%= form_tag search_results_users_path, method: :get do %>
+  <div class="form-group">
+    <%= label_tag :q, 'ユーザー名' %>
+    <%= text_field_tag :q, params[:q], class: 'form-control' %>
+  </div>
+  <%= submit_tag '検索', class: 'btn btn-primary' %>
+<% end %>

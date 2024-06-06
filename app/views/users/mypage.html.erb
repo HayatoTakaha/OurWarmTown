@@ -1,2 +1,4 @@
-<h1>Users#mypage</h1>
-<p>Find me in app/views/users/mypage.html.erb</p>
+<h1>マイページ</h1>
+<p><%= current_user.name %>さん、ようこそ！</p>
+<h2>あなたの投稿一覧</h2>
+<%= render @posts %>
