@@ -6,6 +6,13 @@
   <title>Our Warm Town</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
+    .navbar {
+      height: 80px; /* ヘッダーの高さを調整 */
+    }
+    .navbar-brand {
+      font-size: 24px; /* ロゴのフォントサイズを調整 */
+      font-weight: bold;
+    }
     .main-visual {
       background-image: url('<%= asset_path("shopping_street07.png") %>');
       background-size: cover;
@@ -28,11 +35,20 @@
     .pagination .page-link {
       color: #007bff;
     }
+    .btn-custom:hover {
+      background-color: #ADFF2F;
+      color: white;
+    }
   </style>
 </head>
 <body>
   <%= render 'layouts/header' %>
-  <%= yield %>
+  <div class="main-visual">
+    <h1>Our Warm Town</h1>
+  </div>
+  <div class="container mt-4">
+    <%= yield %>
+  </div>
   <%= render 'layouts/footer' %>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

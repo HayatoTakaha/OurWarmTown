@@ -1,44 +1,70 @@
-<div class="container mt-4">
-  <div class="row">
-    <aside class="col-md-3">
-      <button class="btn btn-primary btn-block mb-3">グループ作成</button>
-      <ul class="list-group mb-3">
-        <% @groups.each do |group| %>
-          <li class="list-group-item"><%= link_to group.name, group_path(group) %></li>
-        <% end %>
-      </ul>
-      <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-          <%= paginate @groups %>
-        </ul>
-      </nav>
-    </aside>
-    <section class="col-md-6">
-      <button class="btn btn-success btn-block mb-3">投稿</button>
-      <% @posts.each do |post| %>
-        <div class="post mb-3">
-          <h5><%= link_to post.title, post_path(post) %></h5>
-          <p><%= post.content.truncate(100) %></p>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Warm Town</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .btn-custom {
+      margin-right: 5px;
+    }
+    .btn-custom:hover {
+      background-color: #adff2f; /* 黄緑色 */
+      color: white;
+    }
+    .main-content {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container main-content">
+    <div class="row">
+      <div class="col-12 text-center">
+        <img src="path/to/your/shopping_street07.png" class="img-fluid" alt="Shopping Street07.png">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <button class="btn btn-primary btn-block btn-custom">グループ作成</button>
+        <div class="list-group mt-3">
+          <a href="#" class="list-group-item list-group-item-action">グループ名1</a>
+          <a href="#" class="list-group-item list-group-item-action">グループ名2</a>
+          <a href="#" class="list-group-item list-group-item-action">グループ名3</a>
+          <a href="#" class="list-group-item list-group-item-action">グループ名4</a>
         </div>
-      <% end %>
-      <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-          <%= paginate @posts %>
-        </ul>
-      </nav>
-    </section>
-    <aside class="col-md-3">
-      <button class="btn btn-secondary btn-block mb-3">管理者</button>
-      <ul class="list-group mb-3">
-        <% @posts.each do |post| %>
-          <li class="list-group-item"><%= link_to post.title, post_path(post) %></li>
-        <% end %>
-      </ul>
-      <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-          <%= paginate @posts %>
-        </ul>
-      </nav>
-    </aside>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-success btn-block btn-custom">投稿</button>
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title">投稿タイトル1</h5>
+            <p class="card-text">投稿内容の一部...</p>
+            <a href="#" class="btn btn-primary">詳細を見る</a>
+          </div>
+        </div>
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title">投稿タイトル2</h5>
+            <p class="card-text">投稿内容の一部...</p>
+            <a href="#" class="btn btn-primary">詳細を見る</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-secondary btn-block btn-custom">管理者</button>
+        <div class="list-group mt-3">
+          <a href="#" class="list-group-item list-group-item-action">投稿タイトル1</a>
+          <a href="#" class="list-group-item list-group-item-action">投稿タイトル2</a>
+          <a href="#" class="list-group-item list-group-item-action">投稿タイトル3</a>
+          <a href="#" class="list-group-item list-group-item-action">投稿タイトル4</a>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
