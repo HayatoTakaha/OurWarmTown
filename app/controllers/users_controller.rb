@@ -1,47 +1,48 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :search, :search_results]
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :liked_posts]
+  before_action :authenticate_user!
 
   def mypage
     @user = current_user
-    @posts = @user.posts
+    @posts = @user.posts.page(params[:page])
   end
 
   def edit
+    @user = User.find(params[:id])
+  end
+
+  def show
+    @user = User.find(params[:id])
   end
 
   def update
+    @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to mypage_users_path, notice: 'プロフィールを更新しました。'
+      redirect_to @user, notice: 'ユーザー情報が更新されました'
     else
       render :edit
     end
   end
 
-  def show
-  end
-
   def destroy
+    @user = User.find(params[:id])
     @user.destroy
-    redirect_to root_path, notice: 'ユーザーアカウントを削除しました。'
+    redirect_to root_path, notice: 'ユーザーが削除されました'
   end
 
   def liked_posts
-    @liked_posts = @user.liked_posts
+    @user = User.find(params[:id])
+    @liked_posts = @user.liked_posts.page(params[:page])
   end
 
   def search
+    # 検索機能の実装
   end
 
   def search_results
-    @users = User.where('name LIKE ?', "%#{params[:q]}%")
+    # 検索結果の表示
   end
 
   private
-
-  def set_user
-    @user = User.find(params[:id])
-  end
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)

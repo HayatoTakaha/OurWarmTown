@@ -1,0 +1,44 @@
+<div class="container mt-4">
+  <div class="row">
+    <aside class="col-md-3">
+      <button class="btn btn-primary btn-block mb-3">グループ作成</button>
+      <ul class="list-group mb-3">
+        <% @groups.each do |group| %>
+          <li class="list-group-item"><%= link_to group.name, group_path(group) %></li>
+        <% end %>
+      </ul>
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+          <%= paginate @groups %>
+        </ul>
+      </nav>
+    </aside>
+    <section class="col-md-6">
+      <button class="btn btn-success btn-block mb-3">投稿</button>
+      <% @posts.each do |post| %>
+        <div class="post mb-3">
+          <h5><%= link_to post.title, post_path(post) %></h5>
+          <p><%= post.content.truncate(100) %></p>
+        </div>
+      <% end %>
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+          <%= paginate @posts %>
+        </ul>
+      </nav>
+    </section>
+    <aside class="col-md-3">
+      <button class="btn btn-secondary btn-block mb-3">管理者</button>
+      <ul class="list-group mb-3">
+        <% @posts.each do |post| %>
+          <li class="list-group-item"><%= link_to post.title, post_path(post) %></li>
+        <% end %>
+      </ul>
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+          <%= paginate @posts %>
+        </ul>
+      </nav>
+    </aside>
+  </div>
+</div>
