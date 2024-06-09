@@ -30,6 +30,10 @@ Rails.application.routes.draw do
   end
 
   resources :groups do
+    member do
+      post 'join'
+      delete 'leave'
+    end
     resources :user_groups, only: [:create, :destroy]
   end
 

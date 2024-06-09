@@ -1,0 +1,12 @@
+<!-- app/views/posts/_form.html.erb -->
+<%= form_with(model: @post, local: true) do |form| %>
+  <!-- その他のフィールド -->
+  <div class="form-group">
+    <%= form.label :image %>
+    <%= form.file_field :image, class: 'form-control' %>
+  </div>
+  <div class="actions">
+    <%= form.submit '保存', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+

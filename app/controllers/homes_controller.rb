@@ -1,9 +1,6 @@
 class HomesController < ApplicationController
   def top
-    @groups = Group.all.page(params[:page])
-    @posts = Post.all.page(params[:page])
-  end
-
-  def about
+    @groups = Group.includes(:posts).all
+    @recent_posts = Post.order(created_at: :desc).limit(10)
   end
 end

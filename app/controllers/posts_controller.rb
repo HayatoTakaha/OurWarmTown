@@ -1,17 +1,16 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update, :destroy]
-
-  def new
-    @post = Post.new
-  end
 
   def index
     @posts = Post.all
   end
 
   def show
+  end
+
+  def new
+    @post = current_user.posts.build
   end
 
   def create
@@ -36,7 +35,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: '投稿が削除されました。'
+    redirect_to posts_url, notice: '投稿が削除されました。'
   end
 
   private
@@ -46,11 +45,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :keywords)
-  end
-
-  def correct_user
-    @post = current_user.posts.find_by(id: params[:id])
-    redirect_to posts_path, notice: "権限がありません" if @post.nil?
+    params.require(:post).permit(:title, :content, :group_id)
   end
 end

@@ -1,2 +1,35 @@
-<h1>Groups#show</h1>
-<p>Find me in app/views/groups/show.html.erb</p>
+<div class="container main-content">
+  <div class="row">
+    <div class="col-md-3">
+      <% if @is_owner %>
+        <%= link_to 'グループ編集', edit_group_path(@group), class: 'btn btn-primary btn-block btn-custom' %>
+      <% end %>
+      <div class="list-group mt-3">
+        <h4>グループメンバー</h4>
+        <% @group.users.each do |user| %>
+          <%= link_to user.name, user_path(user), class: 'list-group-item list-group-item-action' %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <h2><%= @group.name %></h2>
+      <p><%= @group.description %></p>
+      <% if @is_member %>
+        <%= link_to '投稿作成', new_post_path(group_id: @group.id), class: 'btn btn-success btn-block btn-custom' %>
+      <% else %>
+        <%= form_with url: join_group_path(@group), method: :post do %>
+          <%= submit_tag 'このグループに参加', class: 'btn btn-primary btn-block btn-custom' %>
+        <% end %>
+      <% end %>
+      <% @group_posts.each do |post| %>
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title"><%= post.title %></h5>
+            <p class="card-text"><%= truncate(post.content, length: 100) %></p>
+            <%= link_to '詳細を見る', post_path(post), class: 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

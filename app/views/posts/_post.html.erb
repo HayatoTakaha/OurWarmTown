@@ -1,0 +1,7 @@
+<div class="card mt-3">
+  <div class="card-body">
+    <h5 class="card-title"><%= post.title %></h5>
+    <p class="card-text"><%= truncate(post.content, length: 100) %></p>
+    <%= link_to '詳細を見る', post_path(post), class: 'btn btn-primary' %>
+  </div>
+</div>

@@ -1,70 +1,48 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Warm Town</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    .btn-custom {
-      margin-right: 5px;
-    }
-    .btn-custom:hover {
-      background-color: #adff2f; /* 黄緑色 */
-      color: white;
-    }
-    .main-content {
-      margin-top: 20px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container main-content">
-    <div class="row">
-      <div class="col-12 text-center">
-        <img src="path/to/your/shopping_street07.png" class="img-fluid" alt="Shopping Street07.png">
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-3">
+      <%= link_to new_group_path, class: 'btn btn-primary btn-sm btn-block btn-custom mt-3' do %>
+        <i class="fas fa-plus-circle"></i> グループ作成
+      <% end %>
+      <div class="list-group mt-3">
+        <% @groups.each do |group| %>
+          <div class="list-group-item d-flex align-items-center">
+            <% if group.image.attached? %>
+              <img src="<%= url_for(group.image) %>" alt="グループ写真" class="img-thumbnail mr-3" style="width: 100px; height: 100px;">
+            <% else %>
+              <img src="https://via.placeholder.com/100" alt="デフォルト画像" class="img-thumbnail mr-3" style="width: 100px; height: 100px;">
+            <% end %>
+            <div class="flex-grow-1">
+              <h5 class="mb-1"><%= group.name %></h5>
+            </div>
+            <%= link_to group_path(group), class: 'btn btn-primary' do %>
+              <i class="fas fa-info-circle"></i> 詳細
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-3">
-        <button class="btn btn-primary btn-block btn-custom">グループ作成</button>
-        <div class="list-group mt-3">
-          <a href="#" class="list-group-item list-group-item-action">グループ名1</a>
-          <a href="#" class="list-group-item list-group-item-action">グループ名2</a>
-          <a href="#" class="list-group-item list-group-item-action">グループ名3</a>
-          <a href="#" class="list-group-item list-group-item-action">グループ名4</a>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <button class="btn btn-success btn-block btn-custom">投稿</button>
-        <div class="card mt-3">
-          <div class="card-body">
-            <h5 class="card-title">投稿タイトル1</h5>
-            <p class="card-text">投稿内容の一部...</p>
-            <a href="#" class="btn btn-primary">詳細を見る</a>
+    <div class="col-md-9">
+      <%= link_to new_post_path, class: 'btn btn-success btn-sm btn-block btn-custom mt-3' do %>
+        <i class="fas fa-pencil-alt"></i> 投稿作成
+      <% end %>
+      <div class="list-group mt-3">
+        <% @recent_posts.each do |post| %>
+          <div class="list-group-item d-flex align-items-center">
+            <% if post.image.attached? %>
+              <img src="<%= url_for(post.image) %>" alt="投稿写真" class="img-thumbnail mr-3" style="width: 100px; height: 100px;">
+            <% else %>
+              <img src="https://via.placeholder.com/100" alt="デフォルト画像" class="img-thumbnail mr-3" style="width: 100px; height: 100px;">
+            <% end %>
+            <div class="flex-grow-1">
+              <h5 class="mb-1"><%= post.title %></h5>
+            </div>
+            <%= link_to post_path(post), class: 'btn btn-primary' do %>
+              <i class="fas fa-info-circle"></i> 詳細
+            <% end %>
           </div>
-        </div>
-        <div class="card mt-3">
-          <div class="card-body">
-            <h5 class="card-title">投稿タイトル2</h5>
-            <p class="card-text">投稿内容の一部...</p>
-            <a href="#" class="btn btn-primary">詳細を見る</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <button class="btn btn-secondary btn-block btn-custom">管理者</button>
-        <div class="list-group mt-3">
-          <a href="#" class="list-group-item list-group-item-action">投稿タイトル1</a>
-          <a href="#" class="list-group-item list-group-item-action">投稿タイトル2</a>
-          <a href="#" class="list-group-item list-group-item-action">投稿タイトル3</a>
-          <a href="#" class="list-group-item list-group-item-action">投稿タイトル4</a>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+</div>

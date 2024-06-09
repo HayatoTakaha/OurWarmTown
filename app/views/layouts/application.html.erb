@@ -5,16 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Warm Town</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
+    body {
+      background-color: #FAF3E0; /* 背景色を温かみのある色に変更 */
+    }
     .navbar {
       height: 80px; /* ヘッダーの高さを調整 */
+      background-color: #FF6347; /* ヘッダーの背景色を変更 */
     }
     .navbar-brand {
-      font-size: 24px; /* ロゴのフォントサイズを調整 */
+      font-family: 'Dancing Script', cursive; /* おしゃれな筆記体に変更 */
+      font-size: 32px; /* ロゴのフォントサイズを調整 */
       font-weight: bold;
+      color: white; /* ロゴの色を変更 */
     }
     .main-visual {
-      background-image: url('<%= asset_path("shopping_street07.png") %>');
+      background-image: url('<%= asset_path("shopping_street07.png") %>'); /* メインビジュアルを指定の画像に変更 */
       background-size: cover;
       background-position: center;
       height: 400px;
@@ -35,11 +42,33 @@
     .pagination .page-link {
       color: #007bff;
     }
+    .btn-custom {
+      display: flex;
+      align-items: center;
+      transition: box-shadow 0.3s, color 0.3s;
+    }
+    .btn-custom i {
+      margin-right: 5px;
+    }
     .btn-custom:hover {
-      background-color: #ADFF2F;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       color: white;
     }
+    .navbar-nav .nav-item + .nav-item {
+      margin-left: 10px;
+    }
+    .footer {
+      background-color: #FF6347; /* フッターの背景色を変更 */
+      color: white; /* フッターの文字色を変更 */
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding: 10px 0;
+      text-align: center;
+    }
   </style>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
   <%= render 'layouts/header' %>
@@ -53,5 +82,7 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Font Awesome CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" integrity="sha384-dyB6Q8uBA6kOqj0DhpTbJ6V3EYlVEe8u1SNTBaqp7JzBz7x4nb5PZq5tmC1lC3x0" crossorigin="anonymous"></script>
 </body>
 </html>
