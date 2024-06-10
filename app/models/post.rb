@@ -1,10 +1,16 @@
 class Post < ApplicationRecord
   belongs_to :user
-  belongs_to :group
-  has_many_attached :image
+  belongs_to :group, optional: true
+  has_many_attached :images
+
   # Validations
   validates :title, presence: true
   validates :content, presence: true
-  validates :group_id, presence: true
-end
+  validate :group_presence, if: -> { group_id.present? }
 
+  private
+
+  def group_presence
+    errors.add(:group, "must exist") if group.nil?
+  end
+end

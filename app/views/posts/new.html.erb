@@ -1,28 +1,38 @@
-<%= form_with(model: @post, local: true) do |form| %>
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
-      <ul>
-        <% @post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+  <div class="col-md-6">
+    <%= form_with(model: @post, local: true, html: { multipart: true }) do |form| %>
+      <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+            <% @post.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div class="form-group">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: 'form-control' %>
+      <div class="form-group">
+        <%= form.label :images, "Image" %>
+        <%= form.file_field :images, multiple: true, class: 'form-control-file' %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :title %>
+        <%= form.text_field :title, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :content %>
+        <%= form.text_area :content, class: 'form-control' %>
+      </div>
+
+      <% if @group %>
+        <%= form.hidden_field :group_id, value: @group.id %>
+      <% end %>
+
+      <div class="actions text-center">
+        <%= form.submit "投稿", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="form-group">
-    <%= form.label :content %>
-    <%= form.text_area :content, class: 'form-control' %>
-  </div>
-
-  <%= form.hidden_field :group_id, value: params[:group_id] %>
-
-  <div class="actions">
-    <%= form.submit "投稿", class: 'btn btn-primary' %>
-  </div>
-<% end %>
+</div>

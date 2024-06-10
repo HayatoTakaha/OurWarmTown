@@ -1,17 +1,12 @@
-class UserGroupsController < ApplicationController
-  def create
-    @group = Group.find(params[:group_id])
-    @user_group = @group.user_groups.build(user: current_user)
-    if @user_group.save
-      redirect_to group_path(@group)
-    else
-      redirect_to group_path(@group), alert: '参加できませんでした。'
-    end
-  end
+class Group < ApplicationRecord
+  # Associations
+  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id', optional: false
+  has_one_attached :image
+  has_many :user_groups
+  has_many :users, through: :user_groups
+  has_many :posts, dependent: :destroy
 
-  def destroy
-    @user_group = UserGroup.find(params[:id])
-    @user_group.destroy
-    redirect_to group_path(@user_group.group)
-  end
+  # Validations
+  validates :name, presence: true
+  validates :description, presence: true
 end

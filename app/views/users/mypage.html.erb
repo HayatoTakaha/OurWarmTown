@@ -1,4 +1,30 @@
-<h1>マイページ</h1>
-<p><%= current_user.name %>さん、ようこそ！</p>
-<h2>あなたの投稿一覧</h2>
-<%= render @posts %>
+<h1>MyPage</h1>
+<div class="row">
+  <div class="col-md-3 text-center">
+    <% if current_user.profile_image.attached? %>
+      <%= image_tag current_user.profile_image, class: 'img-fluid rounded-circle', alt: 'プロフィール画像' %>
+    <% else %>
+      <img src="https://via.placeholder.com/150" class="img-fluid rounded-circle" alt="デフォルト画像">
+    <% end %>
+    <p class="mt-2"><strong><%= current_user.name %></strong>さん、ようこそ！</p>
+    <%= link_to '編集', edit_user_path(current_user), class: 'btn btn-primary mt-2' %>
+  </div>
+  <div class="col-md-9">
+    <h2>あなたの投稿一覧</h2>
+    <% @posts.each do |post| %>
+      <div class="content-box mb-3 p-3">
+        <h5><%= post.title %></h5>
+        <p><%= post.content %></p>
+        <% if post.images.attached? %>
+          <div class="row">
+            <% post.images.each do |image| %>
+              <div class="col-md-4">
+                <%= image_tag image, class: 'img-fluid', alt: '投稿画像' %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

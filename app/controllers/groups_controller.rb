@@ -18,7 +18,8 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = current_user.owned_groups.build(group_params)
+    @group = Group.new(group_params)
+    @group.owner = current_user
     if @group.save
       redirect_to @group, notice: 'グループが作成されました。'
     else
@@ -69,6 +70,6 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params.require(:group).permit(:name, :description)
+    params.require(:group).permit(:name, :description, :image)
   end
 end

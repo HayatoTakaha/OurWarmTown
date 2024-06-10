@@ -1,7 +1,7 @@
 class CreateGroups < ActiveRecord::Migration[6.1]
   def change
     create_table :groups do |t|
-      t.references :user, null: false, foreign_key: true
+      t.references :owner, foreign_key: { to_table: :users } # user_idをowner_idに変更
       t.string :name, null: false
       t.text :description, null: false
 

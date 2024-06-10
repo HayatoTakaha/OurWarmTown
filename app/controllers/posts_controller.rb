@@ -1,9 +1,15 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: [:new, :create]
 
   def index
-    @posts = Post.all
+    if params[:group_id]
+      @group = Group.find(params[:group_id])
+      @posts = @group.posts
+    else
+      @posts = Post.all
+    end
   end
 
   def show
@@ -11,10 +17,13 @@ class PostsController < ApplicationController
 
   def new
     @post = current_user.posts.build
+    @post.group = @group if @group
   end
 
   def create
     @post = current_user.posts.build(post_params)
+    @post.group = @group if @group
+
     if @post.save
       redirect_to @post, notice: '投稿が作成されました。'
     else
@@ -44,7 +53,11 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def set_group
+    @group = Group.find(params[:group_id]) if params[:group_id]
+  end
+
   def post_params
-    params.require(:post).permit(:title, :content, :group_id)
+    params.require(:post).permit(:title, :content, :group_id, images: [])
   end
 end

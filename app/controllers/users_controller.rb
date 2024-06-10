@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: [:edit, :show, :update, :destroy, :liked_posts]
 
   def mypage
     @user = current_user
@@ -7,30 +8,25 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to @user, notice: 'ユーザー情報が更新されました'
+      redirect_to mypage_users_path, notice: 'ユーザー情報が更新されました'
     else
       render :edit
     end
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     redirect_to root_path, notice: 'ユーザーが削除されました'
   end
 
   def liked_posts
-    @user = User.find(params[:id])
     @liked_posts = @user.liked_posts.page(params[:page])
   end
 
@@ -44,7 +40,14 @@ class UsersController < ApplicationController
 
   private
 
+  def set_user
+    @user = User.find_by(id: params[:id])
+    unless @user
+      redirect_to root_path, alert: "ユーザーが見つかりませんでした。"
+    end
+  end
+
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :profile_image)
   end
 end

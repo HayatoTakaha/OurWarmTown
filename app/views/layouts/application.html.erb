@@ -6,25 +6,27 @@
   <title>Our Warm Town</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #FAF3E0; /* 背景色を温かみのある色に変更 */
+      background-color: #FAF3E0; /* 背景色変更 */
     }
     .navbar {
-      height: 80px; /* ヘッダーの高さを調整 */
-      background-color: #FF6347; /* ヘッダーの背景色を変更 */
+      height: 100px; /* ヘッダーの高さを調整 */
+      background-color: #FFC7AF; /* ヘッダーの背景色を変更 */
     }
     .navbar-brand {
-      font-family: 'Dancing Script', cursive; /* おしゃれな筆記体に変更 */
+      font-family: 'Dancing Script', cursive; /* 筆記体変更 */
       font-size: 32px; /* ロゴのフォントサイズを調整 */
       font-weight: bold;
       color: white; /* ロゴの色を変更 */
     }
     .main-visual {
-      background-image: url('<%= asset_path("shopping_street07.png") %>'); /* メインビジュアルを指定の画像に変更 */
+      background-image: url('<%= asset_path("shopping_street07.png") %>'); 
       background-size: cover;
       background-position: center;
-      height: 400px;
+      height: 300px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -52,13 +54,24 @@
     }
     .btn-custom:hover {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      color: white;
+      color: white; /* ホバー時の文字色を白に */
+    }
+    .btn-fixed-width {
+      width: 100px; /* ボタンの横幅設定 */
     }
     .navbar-nav .nav-item + .nav-item {
       margin-left: 10px;
     }
+    .content-box {
+      background-color: #FFC7AF; /* コンテンツボックスの背景色を変更 */
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
     .footer {
-      background-color: #FF6347; /* フッターの背景色を変更 */
+      background-color: #FFC7AF; /* フッターの背景色を変更 */
       color: white; /* フッターの文字色を変更 */
       position: fixed;
       bottom: 0;
@@ -66,23 +79,42 @@
       padding: 10px 0;
       text-align: center;
     }
+    .content {
+      margin-bottom: 300px; 
+    }
   </style>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
   <%= render 'layouts/header' %>
   <div class="main-visual">
     <h1>Our Warm Town</h1>
   </div>
-  <div class="container mt-4">
+  <div class="container mt-4 content">
+    <% if flash[:notice] %>
+      <div class="alert alert-success"><%= flash[:notice] %></div>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-danger"><%= flash[:alert] %></div>
+    <% end %>
     <%= yield %>
   </div>
   <%= render 'layouts/footer' %>
+  
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <!-- Font Awesome CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" integrity="sha384-dyB6Q8uBA6kOqj0DhpTbJ6V3EYlVEe8u1SNTBaqp7JzBz7x4nb5PZq5tmC1lC3x0" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@rails/ujs@6.0.0/dist/rails-ujs.min.js"></script>
+  <script>
+    Rails.start();
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.location.hash) {
+        var element = document.querySelector(window.location.hash);
+        if (element) {
+          element.scrollIntoView();
+        }
+      }
+    });
+  </script>
 </body>
 </html>

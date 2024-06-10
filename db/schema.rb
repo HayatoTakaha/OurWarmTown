@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_09_075133) do
+ActiveRecord::Schema.define(version: 2024_06_10_062221) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -59,14 +59,12 @@ ActiveRecord::Schema.define(version: 2024_06_09_075133) do
   end
 
   create_table "groups", force: :cascade do |t|
-    t.integer "user_id", null: false
     t.string "name", null: false
     t.text "description", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "owner_id"
     t.string "image_url"
-    t.index ["user_id"], name: "index_groups_on_user_id"
+    t.integer "owner_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -80,7 +78,7 @@ ActiveRecord::Schema.define(version: 2024_06_09_075133) do
 
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "group_id", null: false
+    t.integer "group_id"
     t.string "title", null: false
     t.text "content", null: false
     t.string "keywords"
@@ -119,7 +117,7 @@ ActiveRecord::Schema.define(version: 2024_06_09_075133) do
   add_foreign_key "admins", "users"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
-  add_foreign_key "groups", "users"
+  add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "groups"
