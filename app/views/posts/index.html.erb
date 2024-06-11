@@ -1,9 +1,23 @@
 <h1>投稿一覧</h1>
-<%= link_to '新規投稿', new_post_path, class: 'btn btn-primary' %>
-<% @posts.each do |post| %>
-  <div class="post">
-    <h2><%= link_to post.title, post %></h2>
-    <p><%= truncate(post.content, length: 100) %></p>
-    <p><%= link_to '編集', edit_post_path(post), class: 'btn btn-secondary' %> <%= link_to '削除', post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %></p>
-  </div>
-<% end %>
+<%= link_to '新規投稿', new_post_path, class: 'btn btn-primary mb-3' %>
+<div class="row">
+  <% @posts.each_slice(3) do |post_group| %> <!-- 3つずつのグループに分ける -->
+    <% post_group.each do |post| %>
+      <div class="col-md-4 mb-3">
+        <div class="post p-3 border rounded">
+          <h2><%= link_to post.title, post %></h2>
+          <p><%= truncate(post.content, length: 100) %></p>
+          <% if post.images.attached? %>
+            <div class="row">
+              <% post.images.each do |image| %>
+                <div class="col-md-12 mb-2">
+                  <%= image_tag image, class: 'img-fluid', alt: '投稿画像' %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
