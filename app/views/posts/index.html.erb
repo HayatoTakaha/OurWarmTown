@@ -1,17 +1,18 @@
-<h1>投稿一覧</h1>
-<%= link_to '新規投稿', new_post_path, class: 'btn btn-primary mb-3' %>
+<h3 class="display-6 my-4" style="font-family: 'Dancing Script', cursive; color: #5a5a5a;">投稿一覧</h3>
 <div class="row">
-  <% @posts.each_slice(3) do |post_group| %> <!-- 3つずつのグループに分ける -->
+  <% @posts.order(created_at: :desc).each_slice(4) do |post_group| %> 
     <% post_group.each do |post| %>
-      <div class="col-md-4 mb-3">
-        <div class="post p-3 border rounded">
-          <h2><%= link_to post.title, post %></h2>
-          <p><%= truncate(post.content, length: 100) %></p>
+      <div class="col-sm-2"> <!-- 横幅を狭く -->
+        <div class="post p-3 border rounded content-box" style="width: 180px; height: 180px;"> <!-- 横幅と高さを調整 -->
+          <h4 class="font-italic post-title">
+            <%= link_to post.title, post, class: 'text-decoration-none' %>
+          </h4>
+          <p class="post-content"><%= truncate(post.content, length: 50) %></p> <!-- 投稿内容の表示をさらに短く -->
           <% if post.images.attached? %>
             <div class="row">
               <% post.images.each do |image| %>
                 <div class="col-md-12 mb-2">
-                  <%= image_tag image, class: 'img-fluid', alt: '投稿画像' %>
+                  <%= image_tag image, class: 'img-fluid', style: 'max-height: 80px; max-width: 100%; object-fit: cover;', alt: '投稿画像' %> 
                 </div>
               <% end %>
             </div>
@@ -20,4 +21,22 @@
       </div>
     <% end %>
   <% end %>
-</div> 
+</div>
+
+<style>
+  .content-box {
+    background-color: #FFC7AF;
+  }
+
+  .post-title a {
+    color: #5a5a5a; /* タイトルの色を変更 */
+  }
+
+  .post-title a:hover {
+    color: #ff6347; /* カーソルを合わせると色が変わる */
+  }
+
+  .post-content {
+    margin-bottom: 10px; /* 投稿内容同士の間隔を狭くする */
+  }
+</style>
