@@ -8,22 +8,24 @@
     <% end %>
     <p class="mt-2"><strong><%= current_user.name %></strong>さん、ようこそ！</p>
     <%= link_to '編集', edit_user_path(current_user), class: 'btn btn-primary mt-2' %>
-    <%= link_to '全ての投稿を見る', posts_path, class: 'btn btn-secondary mt-2' %> <!-- 追加 -->
+    <%= link_to '全ての投稿を見る', posts_path, class: 'btn btn-secondary mt-2' %> 
   </div>
   <div class="col-md-9">
-    <h2>あなたの投稿一覧</h2>
-    <div class="row">
-      <% @posts.each_slice(3) do |post_group| %> <!-- 3つずつのグループに分ける -->
-        <% post_group.each do |post| %>
-          <div class="col-md-4">
-            <div class="content-box mb-3 p-3">
-              <h5><%= post.title %></h5>
-              <p><%= truncate(post.content, length: 100) %></p> <!-- 投稿内容を短縮表示 -->
+    <div class="recent-posts-section" style="margin-left: 100px;"> 
+      <h2 class="display-6 my-4" style="font-family: 'Dancing Script', cursive; color: #5a5a5a; text-align: left;">最近の投稿</h2>
+      <div class="row justify-content-start"> 
+        <% @posts.order(created_at: :desc).limit(3).each do |post| %> <!-- 最新の投稿3つを表示 -->
+          <div class="col-md-3 mb-2 px-2"> 
+            <div class="post p-3 border rounded content-box" style="width: 180px; height: 180px;">
+              <h4 class="font-italic post-title">
+                <%= link_to post.title, post, class: 'text-decoration-none' %>
+              </h4>
+              <p class="post-content"><%= truncate(post.content, length: 50) %></p>
               <% if post.images.attached? %>
                 <div class="row">
                   <% post.images.each do |image| %>
                     <div class="col-md-12 mb-2">
-                      <%= image_tag image, class: 'img-fluid', alt: '投稿画像' %>
+                      <%= image_tag image, class: 'img-fluid', style: 'max-height: 80px; max-width: 100%; object-fit: cover;', alt: '投稿画像' %> 
                     </div>
                   <% end %>
                 </div>
@@ -31,7 +33,26 @@
             </div>
           </div>
         <% end %>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>
+
+<style>
+  .content-box {
+    background-color: #FFFAF0;
+    margin: 5px;
+  }
+
+  .post-title a {
+    color: #5a5a5a;
+  }
+
+  .post-title a:hover {
+    color: #ff6347; 
+  }
+
+  .post-content {
+    margin-bottom: 5px; 
+  }
+</style>

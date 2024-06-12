@@ -7,20 +7,21 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <%= csrf_meta_tags %>
   <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <style>
     body {
-      background-color: #FAF3E0; /* 背景色変更 */
+      background-color: #FAF3E0; 
     }
     .navbar {
-      height: 100px; /* ヘッダーの高さを調整 */
-      background-color: #FFC7AF; /* ヘッダーの背景色を変更 */
+      height: 100px; 
+      background-color: #FFC7AF; 
     }
     .navbar-brand {
-      font-family: 'Dancing Script', cursive; /* 筆記体変更 */
-      font-size: 32px; /* ロゴのフォントサイズを調整 */
+      font-family: 'Dancing Script', cursive; 
+      font-size: 32px; 
       font-weight: bold;
-      color: white; /* ロゴの色を変更 */
+      color: white; 
     }
     .main-visual {
       background-image: url('<%= asset_path("shopping_street07.png") %>'); 
@@ -54,24 +55,24 @@
     }
     .btn-custom:hover {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      color: white; /* ホバー時の文字色を白に */
+      color: white; 
     }
     .btn-fixed-width {
-      width: 100px; /* ボタンの横幅設定 */
+      width: 100px; 
     }
     .navbar-nav .nav-item + .nav-item {
       margin-left: 10px;
     }
     .content-box {
-      background-color: #FFC7AF; /* コンテンツボックスの背景色を変更 */
+      background-color: #FFFAF0; 
       padding: 15px;
       margin-bottom: 15px;
       border-radius: 5px;
       border: 1px solid #ddd;
     }
     .footer {
-      background-color: #FFC7AF; /* フッターの背景色を変更 */
-      color: white; /* フッターの文字色を変更 */
+      background-color: #FFC7AF; 
+      color: white; 
       position: fixed;
       bottom: 0;
       width: 100%;

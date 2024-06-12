@@ -20,4 +20,10 @@ document.addEventListener("turbolinks:load", function() {
       e.stopImmediatePropagation();
     }
   });
+
+  $(document).on('ajax:success', 'a[data-method="delete"]', function(e) {
+    console.log('DELETE request sent successfully');
+  }).on('ajax:error', 'a[data-method="delete"]', function(e) {
+    console.log('Error sending DELETE request');
+  });
 });
