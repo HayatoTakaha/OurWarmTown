@@ -1,19 +1,20 @@
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-md-5">
+<!-- HTMLファイル -->
+<div class="container-fluid mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-3 custom-left-section">
       <%= link_to new_group_path, class: 'btn btn-primary btn-sm btn-block btn-custom mt-3 btn-fixed-width' do %>
         <i class="fas fa-plus-circle"></i> グループ作成
       <% end %>
-      <div class="list-group mt-3">
+      <div class="list-group mt-4">
         <% @groups.each do |group| %>
           <div class="list-group-item d-flex align-items-center content-box">
             <% if group.image.attached? %>
-              <img src="<%= url_for(group.image) %>" alt="グループ写真" class="img-thumbnail mr-3" style="width: 100px; height: 100px;">
+              <img src="<%= url_for(group.image) %>" alt="グループ写真" class="img-thumbnail mr-3" style="width: 110px; height: 110px;">
             <% else %>
               <img src="https://via.placeholder.com/100" alt="デフォルト画像" class="img-thumbnail mr-3" style="width: 100px; height: 100px;">
             <% end %>
             <div class="flex-grow-1">
-              <h5 class="mb-1"><%= group.name %></h5>
+              <h6 class="mb-1"><%= group.name %></h6>
             </div>
             <%= link_to group_path(group), class: 'btn btn-primary btn-sm btn-fixed-width' do %>
               <i class="fas fa-info-circle"></i> 詳細
@@ -22,7 +23,7 @@
         <% end %>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
       <%= link_to new_post_path, class: 'btn btn-success btn-sm btn-block btn-custom mt-3 btn-fixed-width' do %>
         <i class="fas fa-pencil-alt"></i> 投稿する
       <% end %>
@@ -30,19 +31,98 @@
         <% @recent_posts.each do |post| %>
           <div class="list-group-item d-flex align-items-center content-box">
             <% if post.images.attached? %>
-              <img src="<%= url_for(post.images.first) %>" alt="投稿写真" class="img-thumbnail mr-3" style="width: 150px; height: 150px;">
+              <img src="<%= url_for(post.images.first) %>" alt="投稿写真" class="img-thumbnail mr-4" style="width: 150px; height: 140px;">
             <% else %>
-              <img src="https://via.placeholder.com/100" alt="デフォルト画像" class="img-thumbnail mr-3" style="width: 150px; height: 150px;">
+              <img src="https://via.placeholder.com/100" alt="デフォルト画像" class="img-thumbnail mr-4" style="width: 150px; height: 140px;">
             <% end %>
             <div class="flex-grow-1">
-              <h5 class="mb-1"><%= post.title %></h5>
+              <p class="mb-1" style="font-size: 0.9em;"><strong><%= post.user.name %></strong></p> 
+              <h5 class="mb-1 post-title" style="font-size: 1em;"><%= link_to post.title, post, class: 'text-decoration-none' %></h5>
+              <p class="post-content" style="font-size: 0.9em;"><%= truncate(post.content, length: 10) %></p>
             </div>
-            <%= link_to post_path(post), class: 'btn btn-primary btn-sm btn-fixed-width' do %>
-              <i class="fas fa-info-circle"></i> 詳細
-            <% end %>
           </div>
         <% end %>
       </div>
     </div>
+    <div class="col-md-3">
+      <div class="background-box mb-3" style="background-image: url('<%= asset_path('background_a.jpg') %>');">
+        <p class="image-description">街の魅力や新しい発見など<br>教えてください</p>
+      </div>
+      <div class="background-box" style="background-image: url('<%= asset_path('background_b.jpg') %>');">
+        <p class="image-description">好きなものや知りたい情報または相談などグループを作りみんなで共有<br>しよう</p>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- CSS -->
+<style>
+  .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .row.justify-content-center {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .row.justify-content-center > [class*="col-"] {
+    padding-right: 15px; /* ボックス間の余白を維持 */
+    padding-left: 15px; /* ボックス間の余白を維持 */
+  }
+
+  .content-box {
+    background-color: #FFFAF0;
+    margin: 3px;
+    overflow: hidden; /* ボックス内にコンテンツを収める */
+  }
+
+  .post-title a {
+    color: #5a5a5a;
+  }
+
+  .post-title a:hover {
+    color: #ff6347; 
+  }
+
+  .post-content {
+    margin-bottom: 10px; 
+    white-space: nowrap; 
+    overflow: hidden; /* ボックスをはみ出さないようにする */
+    text-overflow: ellipsis; /* テキストが切れた部分に「…」を表示する */
+  }
+
+  .custom-left-section {
+    margin-left: 0; 
+  }
+
+  .list-group-item {
+    margin-left: 0; 
+  }
+
+  .background-box {
+    background-color: #FFFAF0; 
+    color: #333;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    text-align: center; 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    height: 350px; 
+  }
+
+  .image-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+
+  .image-description {
+    font-size: 1em;
+    background-color: rgba(255, 255, 255, 0.8); /* 背景色を半透明にする */
+    padding: 10px;
+    border-radius: 5px;
+  }
+</style>
