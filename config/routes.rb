@@ -35,7 +35,7 @@ Rails.application.routes.draw do
       delete 'leave'
     end
     resources :posts, only: [:new, :create, :index]
-    resources :user_groups, only: [:create, :destroy]
+    resources :user_groups, only: [:create, :destroy], module: :users
   end
 
   namespace :admin do
