@@ -41,11 +41,12 @@ ActiveRecord::Schema.define(version: 2024_06_10_062221) do
   end
 
   create_table "admins", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "admin_level", null: false
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_admins_on_user_id"
+    t.index ["email"], name: "index_admins_on_email", unique: true
   end
 
   create_table "comments", force: :cascade do |t|
@@ -114,7 +115,6 @@ ActiveRecord::Schema.define(version: 2024_06_10_062221) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "admins", "users"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "groups", "users", column: "owner_id"
