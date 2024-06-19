@@ -7,7 +7,7 @@
           <h4 class="font-italic post-title">
             <%= link_to post.title, post, class: 'text-decoration-none' %>
           </h4>
-          <p class="post-content"><%= truncate(post.content, length: 50) %></p> 
+          <p class="post-content"><%= truncate(post.content, length: 8) %></p> 
           <% if post.images.attached? %>
             <div class="row">
               <% post.images.each do |image| %>
@@ -38,5 +38,8 @@
 
   .post-content {
     margin-bottom: 10px; 
+    white-space: nowrap; /* テキストが折り返されないようにする */
+    overflow: hidden; /* ボックスをはみ出さないようにする */
+    text-overflow: ellipsis; /* テキストが切れた部分に「…」を表示する */
   }
 </style>

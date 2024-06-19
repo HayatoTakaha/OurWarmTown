@@ -7,7 +7,7 @@
       <% end %> 
       <div class="list-group mt-4">
         <% @groups.each do |group| %>
-          <div class="list-group-item d-flex align-items-center content-box">
+          <div class="list-group-item d-flex align-items-start content-box">
             <% if group.image.attached? %>
               <img src="<%= url_for(group.image) %>" alt="グループ写真" class="img-thumbnail mr-3" style="width: 110px; height: 110px;">
             <% else %>
@@ -15,47 +15,48 @@
             <% end %>
             <div class="flex-grow-1">
               <h6 class="mb-1"><%= group.name %></h6>
+              <%= link_to group_path(group), class: 'btn btn-primary btn-sm btn-fixed-width mt-2' do %>
+                <i class="fas fa-info-circle"></i> 詳細
+              <% end %>
             </div>
-            <%= link_to group_path(group), class: 'btn btn-primary btn-sm btn-fixed-width' do %>
-              <i class="fas fa-info-circle"></i> 詳細
-            <% end %>
           </div>
         <% end %>
       </div>
     </div>
-    <div class="col-md-5">
-      <%= link_to new_post_path, class: 'btn btn-success btn-sm btn-block btn-custom mt-3 btn-fixed-width' do %>
-        <i class="fas fa-pencil-alt"></i> 投稿する
+
+      <div class="col-md-5">
+    <%= link_to new_post_path, class: 'btn btn-success btn-sm btn-block btn-custom mt-3 btn-fixed-width' do %>
+      <i class="fas fa-pencil-alt"></i> 投稿する
+    <% end %>
+    <div class="list-group mt-4">
+      <% @recent_posts.each do |post| %>
+        <div class="list-group-item d-flex align-items-center content-box">
+          <% if post.images.attached? %>
+            <img src="<%= url_for(post.images.first) %>" alt="投稿写真" class="img-thumbnail mr-4" style="width: 150px; height: 140px;">
+          <% else %>
+            <img src="https://via.placeholder.com/100" alt="デフォルト画像" class="img-thumbnail mr-4" style="width: 150px; height: 140px;">
+          <% end %>
+          <div class="flex-grow-1">
+            <p class="mb-1" style="font-size: 0.9em; margin-top: -5px;"><strong><%= post.user.name %></strong></p> 
+            <h5 class="mb-1 post-title" style="font-size: 1em;"><%= link_to post.title, post, class: 'text-decoration-none' %></h5>
+            <p class="post-content" style="font-size: 0.9em;"><%= truncate(post.content, length: 10) %></p>
+          </div>
+        </div>
       <% end %>
-      <div class="list-group mt-4">
-        <% @recent_posts.each do |post| %>
-          <div class="list-group-item d-flex align-items-center content-box">
-            <% if post.images.attached? %>
-              <img src="<%= url_for(post.images.first) %>" alt="投稿写真" class="img-thumbnail mr-4" style="width: 150px; height: 140px;">
-            <% else %>
-              <img src="https://via.placeholder.com/100" alt="デフォルト画像" class="img-thumbnail mr-4" style="width: 150px; height: 140px;">
-            <% end %>
-            <div class="flex-grow-1">
-              <p class="mb-1" style="font-size: 0.9em;"><strong><%= post.user.name %></strong></p> 
-              <h5 class="mb-1 post-title" style="font-size: 1em;"><%= link_to post.title, post, class: 'text-decoration-none' %></h5>
-              <p class="post-content" style="font-size: 0.9em;"><%= truncate(post.content, length: 10) %></p>
-            </div>
-          </div>
-        <% end %>
-      </div>
     </div>
+  </div>
+
     <div class="col-md-3">
       <div class="background-box mb-3" style="background-image: url('<%= asset_path('background_a.jpg') %>');">
         <p class="image-description">街の魅力や新しい発見など<br>教えてください</p>
       </div>
       <div class="background-box" style="background-image: url('<%= asset_path('background_b.jpg') %>');">
-        <p class="image-description">好きなものや知りたい情報または相談などグループを作りみんなで共有<br>しよう</p>
+        <p class="image-description">好きなものや知りたい情報または相談などグループを作り<br>みんなで共有しよう</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- CSS -->
 <style>
   .container-fluid {
     padding-left: 0;
@@ -68,8 +69,8 @@
   }
 
   .row.justify-content-center > [class*="col-"] {
-    padding-right: 15px; /* ボックス間の余白を維持 */
-    padding-left: 15px; /* ボックス間の余白を維持 */
+    padding-right: 15px; 
+    padding-left: 15px; 
   }
 
   .content-box {
@@ -89,7 +90,7 @@
   .post-content {
     margin-bottom: 10px; 
     white-space: nowrap; 
-    overflow: hidden; /* ボックスをはみ出さないようにする */
+    overflow: hidden; 
     text-overflow: ellipsis; /* テキストが切れた部分に「…」を表示する */
   }
 
