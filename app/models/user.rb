@@ -9,4 +9,11 @@ class User < ApplicationRecord
   has_many :user_groups
   has_many :groups, through: :user_groups
   has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :post
+
+  # Check if the user has liked a specific post
+  def liked?(post)
+    likes.exists?(post_id: post.id)
+  end
 end

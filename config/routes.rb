@@ -21,12 +21,14 @@ Rails.application.routes.draw do
   post 'users/guest_sign_in', to: 'users#guest_sign_in'
 
   resources :posts do
+    member do
+      post 'toggle_like'
+    end
     collection do
       get 'search', to: 'posts#search'
       get 'search_results', to: 'posts#search_results'
     end
-    resources :comments, only: [:create, :destroy]
-    resources :likes, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy], module: 'users'
   end
 
   resources :groups do
@@ -35,7 +37,7 @@ Rails.application.routes.draw do
       delete 'leave'
     end
     resources :posts, only: [:new, :create, :index]
-    resources :user_groups, only: [:create, :destroy], module: :users
+    resources :user_groups, only: [:create, :destroy]
   end
 
   namespace :admin do
@@ -44,4 +46,6 @@ Rails.application.routes.draw do
     resources :comments, except: [:new, :create]
     resources :groups, except: [:new, :create]
   end
+
+  get 'admin/groups/manage', to: 'groups#manage', as: :admin_manage_groups
 end

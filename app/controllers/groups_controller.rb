@@ -2,13 +2,14 @@ class GroupsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
   before_action :set_group, only: [:show, :edit, :update, :destroy, :join, :leave]
   before_action :ensure_owner, only: [:edit, :update, :destroy]
+  before_action :ensure_admin, only: [:manage]
 
   def index
     @groups = Group.all
   end
 
   def show
-    @group_posts = @group.posts
+    @group_posts = @group.posts.order(created_at: :desc).page(params[:page]).per(6)
     @is_owner = @group.owner == current_user
     @is_member = @group.users.include?(current_user)
   end
@@ -53,7 +54,7 @@ class GroupsController < ApplicationController
   def leave
     if @group.users.include?(current_user)
       @group.users.delete(current_user)
-      redirect_to @group, notice: 'グループから脱退しました。'
+      redirect_to @group, notice: 'グループから外れました。'
     end
   end
 
@@ -66,6 +67,12 @@ class GroupsController < ApplicationController
   def ensure_owner
     unless @group.owner == current_user
       redirect_to groups_path, alert: 'グループを編集する権限がありません。'
+    end
+  end
+
+  def ensure_admin
+    unless current_user.admin?
+      redirect_to root_path, alert: '管理者権限が必要です。'
     end
   end
 
