@@ -1,2 +1,42 @@
-<h1>Groups#edit</h1>
-<p>Find me in app/views/groups/edit.html.erb</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card" style="background-color: #FFFAF0;">
+        <div class="card-body">
+          <h3 class="display-6 my-4" style="font-family: 'Dancing Script', cursive; color: #5a5a5a;">グループ編集</h3>
+
+          <%= form_with(model: @group, local: true) do |form| %>
+            <% if @group.image.attached? %>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <%= image_tag @group.image, class: 'img-fluid', alt: 'グループ画像' %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+　　　　　　<div class="form-group">
+              <%= form.label :image, "グループ画像" %>
+              <%= form.file_field :image, class: 'form-control' %>
+            </div>
+            
+            <div class="form-group">
+              <%= form.label :name, "グループ名" %>
+              <%= form.text_field :name, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= form.label :description, "説明" %>
+              <%= form.text_area :description, class: 'form-control', rows: 5 %>
+            </div>
+
+            <div class="d-flex">
+              <%= form.submit '更新', class: 'btn btn-primary mr-2' %>
+              <%= link_to 'グループ削除', group_path(@group), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
