@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
+  devise_for :admins, controllers: {
+    sessions: 'admins/sessions'
+  }
+
   resources :users, only: [:edit, :update, :destroy, :show] do
     collection do
       get 'mypage', to: 'users#mypage'

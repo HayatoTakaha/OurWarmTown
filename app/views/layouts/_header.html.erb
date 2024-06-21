@@ -32,6 +32,11 @@
             <i class="fas fa-sign-in-alt"></i> Login
           <% end %>
         </li>
+        <li class="nav-item">
+          <%= link_to new_admin_session_path, class: "nav-link text-danger" do %>
+            <i class="fas fa-user-shield"></i> 管理者
+          <% end %>
+        </li>
       <% end %>
     </ul>
     <form class="form-inline ml-auto" action="/search" method="get">

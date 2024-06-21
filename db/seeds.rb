@@ -7,3 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 # db/seeds.rb または新しい Rake タスクに追加
 # SQLite3の外部キー制約を無効化
+Admin.create!(
+  name: 'Admin User',
+  email: 'admin@example.com',
+  password: 'password',
+  password_confirmation: 'password'
+)

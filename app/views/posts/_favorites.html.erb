@@ -1,0 +1,12 @@
+<div id="favorite-<%= post.id %>">
+  <% if current_user.liked?(post) %>
+    <%= link_to post_toggle_like_path(post), method: :post, remote: true, id: "like-link-#{post.id}" do %>
+      <i class="fas fa-heart" id="like-icon-<%= post.id %>" style="cursor: pointer; color: red;"></i>
+    <% end %>
+  <% else %>
+    <%= link_to post_toggle_like_path(post), method: :post, remote: true, id: "like-link-#{post.id}" do %>
+      <i class="fas fa-heart" id="like-icon-<%= post.id %>" style="cursor: pointer; color: black;"></i>
+    <% end %>
+  <% end %>
+  <span id="likes-count-<%= post.id %>"><%= post.likes.count %></span>
+</div>
