@@ -49,6 +49,7 @@ Rails.application.routes.draw do
     resources :posts, except: [:new, :create]
     resources :comments, except: [:new, :create]
     resources :groups, except: [:new, :create]
-    get 'groups/manage', to: 'groups#manage', as: :manage_groups
   end
+
+  get 'admin/groups/manage', to: 'admin/groups#manage', as: :admin_manage_groups
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_21_084410) do
+ActiveRecord::Schema.define(version: 2024_06_21_133359) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2024_06_21_084410) do
     t.string "last_sign_in_ip"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.datetime "remember_created_at"
     t.index ["email"], name: "index_admins_on_email", unique: true
   end
 
@@ -64,7 +65,7 @@ ActiveRecord::Schema.define(version: 2024_06_21_084410) do
   end
 
   create_table "groups", force: :cascade do |t|
-    t.integer "owner"
+    t.integer "owner_id"
     t.string "name", null: false
     t.text "description", null: false
     t.datetime "created_at", precision: 6, null: false

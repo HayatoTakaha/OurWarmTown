@@ -1,0 +1,17 @@
+<div class="card mt-4">
+  <div class="card-header">
+    <h2 class="card-title"><%= @user.name %>の詳細</h2>
+  </div>
+  <div class="card-body">
+    <p><strong>ID:</strong> <%= @user.id %></p>
+    <p><strong>名前:</strong> <%= @user.name %></p>
+    <p><strong>メールアドレス:</strong> <%= @user.email %></p>
+    <p><strong>作成日時:</strong> <%= @user.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+    <p><strong>更新日時:</strong> <%= @user.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+    <div class="d-flex justify-content-end">
+      <%= link_to '編集', edit_admin_user_path(@user), class: 'btn btn-warning mr-2' %>
+      <%= link_to '削除', admin_user_path(@user), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+      <%= link_to '戻る', admin_users_path, class: 'btn btn-secondary ml-2' %>
+    </div>
+  </div>
+</div>

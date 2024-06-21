@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>管理者ログイン - Our Warm Town</title>
+  <title>管理者画面 - Our Warm Town</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,6 +31,11 @@
         </li>
         <% if admin_signed_in? %>
           <li class="nav-item">
+            <%= link_to admin_users_path, class: "nav-link" do %>
+              <i class="fas fa-users-cog"></i> ユーザー管理
+            <% end %>
+          </li>
+          <li class="nav-item">
             <%= button_to destroy_admin_session_path, method: :delete, class: "nav-link" do %>
               <i class="fas fa-sign-out-alt"></i> Logout
             <% end %>
@@ -37,8 +45,13 @@
     </div>
   </nav>
 
-  <div class="container">
+  <div class="container mt-4">
     <%= yield %>
   </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
