@@ -1,6 +1,6 @@
+# app/models/admin.rb
 class Admin < ApplicationRecord
-  # Deviseの設定を削除して、has_secure_passwordを使用します
-  has_secure_password
-
-  validates :email, presence: true, uniqueness: true
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
+         :trackable
 end
