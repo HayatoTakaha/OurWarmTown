@@ -1,15 +1,10 @@
 class Admin::SessionsController < Devise::SessionsController
   layout 'admin'
 
-  def new
-    super
-  end
-
   def create
-    super
-  end
-
-  def destroy
-    super
+    super do |resource|
+      flash[:notice] = "管理者としてログインしました。"
+      redirect_to admin_users_path and return
+    end
   end
 end
