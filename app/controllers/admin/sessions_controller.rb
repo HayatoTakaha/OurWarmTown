@@ -4,7 +4,7 @@ class Admin::SessionsController < Devise::SessionsController
   def create
     super do |resource|
       flash[:notice] = "管理者としてログインしました。"
-      redirect_to admin_users_path and return
+      redirect_to root_path and return
     end
   end
 end

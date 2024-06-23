@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
   before_action :set_group, only: [:show, :edit, :update, :destroy, :join, :leave]
-  before_action :ensure_owner, only: [:edit, :update, :destroy]
+  before_action :ensure_owner_or_admin, only: [:edit, :update, :destroy]
   before_action :ensure_admin, only: [:manage]
 
   def index
@@ -64,8 +64,8 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
   end
 
-  def ensure_owner
-    unless @group.owner == current_user
+  def ensure_owner_or_admin
+    unless @group.owner == current_user || current_user.admin?
       redirect_to groups_path, alert: 'グループを編集する権限がありません。'
     end
   end
