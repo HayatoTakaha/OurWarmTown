@@ -23,6 +23,7 @@
                 </div>
               </div>
               <div class="col-md-6 d-flex flex-column justify-content-start">
+                <p class="text-muted"><%= @post.created_at.in_time_zone('Tokyo').strftime("%Y年%m月%d日 %H:%M") %></p>
                 <h2 class="card-title mt-3"><%= @post.title %></h2>
                 <p class="card-text"><%= @post.content %></p>
               </div>
@@ -36,6 +37,7 @@
                     <% end %>
                   </div>
                 <% end %>
+                <p class="text-muted"><%= @post.created_at.in_time_zone('Tokyo').strftime("%Y年%m月%d日 %H:%M") %></p>
                 <h2 class="card-title mt-3"><%= @post.title %></h2>
                 <p class="card-text"><%= @post.content %></p>
               </div>

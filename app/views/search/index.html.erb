@@ -1,6 +1,40 @@
-<h1>検索結果</h1>
-<ul>
-  <% @results.each do |result| %>
-    <li><%= link_to result.title, post_path(result) %></li>
-  <% end %>
-</ul>
+<h1 class="mt-4">検索結果</h1>
+
+<h2 class="mt-5">投稿</h2>
+<% if @posts.any? %>
+  <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title"><%= link_to post.title, post_path(post), class: "text-decoration-none" %></h3>
+            <p class="card-text"><%= truncate(post.content, length: 100) %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="alert alert-warning" role="alert">
+    該当する投稿が見つかりませんでした。
+  </div>
+<% end %>
+
+<h2 class="mt-5">ユーザー</h2>
+<% if @users.any? %>
+  <div class="row">
+    <% @users.each do |user| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title"><%= link_to user.name, user_path(user), class: "text-decoration-none" %></h3>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="alert alert-warning" role="alert">
+    該当するユーザーが見つかりませんでした。
+  </div>
+<% end %>

@@ -1,34 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>管理者ページ - Our Warm Town</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', 'data-turbolinks-suppress-warning': true %>
+   <style>
+    body {
+      background-color: #FAF3E0;
+    }
+    .navbar {
+      height: 100px;
+      background-color: #DDFFFF;
+    }
+    .navbar-brand {
+      font-family: 'Dancing Script', cursive;
+      font-size: 32px;
+      font-weight: bold;
+      color: #DDFFFF;
+    }
+    .main-visual {
+      background-image: url('<%= asset_path("shopping_street07.png") %>');
+      background-size: cover;
+      background-position: center;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .main-visual h1 {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-size: 48px;
+    }
+    .info-box {
+      background-color: #f9f9f9;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    .pagination .page-link {
+      color: #007bff;
+    }
+    .btn-custom {
+      display: flex;
+      align-items: center;
+      transition: box-shadow 0.3s, color 0.3s;
+    }
+    .btn-custom i {
+      margin-right: 5px;
+    }
+    .btn-custom:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      color: white;
+    }
+    .btn-fixed-width {
+      width: 100px;
+    }
+    .navbar-nav .nav-item + .nav-item {
+      margin-left: 10px;
+    }
+    .content-box {
+      background-color: #FFFAF0;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+    .footer {
+      background-color: #FFC7AF;
+      color: white;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding: 10px 0;
+      text-align: center;
+    }
+    .content {
+      margin-bottom: 300px;
+    }
+  </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Our Warm Town</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <% if admin_signed_in? %>
-          <li class="nav-item">
-            <%= button_to destroy_admin_session_path, method: :delete, class: "nav-link" do %>
-              <i class="fas fa-sign-out-alt"></i> 管理者ログアウト
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="container">
+  <%= render 'layouts/header' %>
+  <div class="main-visual">
+    <h1>Our Warm Town</h1>
+  </div>
+  <div class="container mt-4 content">
+    <% if flash[:notice] %>
+      <div class="alert alert-success"><%= flash[:notice] %></div>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-danger"><%= flash[:alert] %></div>
+    <% end %>
     <%= yield %>
   </div>
+  <%= render 'layouts/footer' %>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/96781c3f85.js" crossorigin="anonymous"></script>
 </body>
 </html>

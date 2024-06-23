@@ -1,4 +1,5 @@
-Rails.application.routes.draw do 
+# config/routes.rb
+Rails.application.routes.draw do
   root 'homes#top'
   get 'about', to: 'homes#about'
 
@@ -15,7 +16,6 @@ Rails.application.routes.draw do
     collection do
       get 'mypage', to: 'users#mypage'
       get 'search', to: 'users#search'
-      get 'search_results', to: 'users#search_results'
     end
     member do
       get 'liked_posts', to: 'users#liked_posts'
@@ -30,7 +30,6 @@ Rails.application.routes.draw do
     end
     collection do
       get 'search', to: 'posts#search'
-      get 'search_results', to: 'posts#search_results'
     end
     resources :comments, only: [:create, :destroy], module: 'users'
   end
@@ -52,4 +51,6 @@ Rails.application.routes.draw do
   end
 
   get 'admin/groups/manage', to: 'admin/groups#manage', as: :admin_manage_groups
+
+  get 'search', to: 'search#index'
 end
