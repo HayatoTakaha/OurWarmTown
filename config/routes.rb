@@ -24,13 +24,11 @@ Rails.application.routes.draw do
   post 'users/guest_sign_in', to: 'users#guest_sign_in'
 
   resources :posts do
-    member do
-      post 'toggle_like'
-    end
     collection do
       get 'search', to: 'posts#search'
     end
     resources :comments, only: [:create, :destroy]
+    resource :likes, only: [:create, :destroy]
   end
 
   resources :groups do

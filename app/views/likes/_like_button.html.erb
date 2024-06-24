@@ -1,0 +1,9 @@
+<div class="d-flex justify-content-start mt-3">
+  <div id="like-button__<%= post.id %>" class="d-flex align-items-center">
+    <% if current_user.liked?(post) %>
+      <%= render 'likes/unlike', post: post %>
+    <% else %>
+      <%= render 'likes/like', post: post %>
+    <% end %>
+  </div>
+</div>

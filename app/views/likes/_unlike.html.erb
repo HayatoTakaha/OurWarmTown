@@ -1,0 +1,5 @@
+<%= link_to post_likes_path(post), method: :delete, remote: true do %>
+  <i class="fas fa-heart mr-1" id="like-icon" style="cursor:pointer;color:red;"></i>
+<% end %>
+<span class="mr-2"><%= post.likes.count %></span>
+<span style="cursor: pointer;">いいねを取り消す</span>

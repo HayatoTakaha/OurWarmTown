@@ -13,6 +13,14 @@ class User < ApplicationRecord
   has_many :liked_posts, through: :likes, source: :post
 
   # Check if the user has liked a specific post
+  def like(post)
+    self.likes.find_or_create_by(post_id: post.id)
+  end
+  
+  def unlike(post)
+    self.likes.find_by(post_id: post.id)&.destroy
+  end
+  
   def liked?(post)
     likes.exists?(post_id: post.id)
   end
