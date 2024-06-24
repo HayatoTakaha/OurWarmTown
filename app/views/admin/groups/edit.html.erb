@@ -1,56 +1,24 @@
-<h1 class="my-4">グループ編集</h1>
-
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header">
-          グループ編集
-        </div>
-        <div class="card-body">
-          <%= form_with(model: @group, local: true, url: admin_panel_group_path(@group), class: 'needs-validation', novalidate: true) do |form| %>
-             <div class="form-group">
-              <%= form.label :image, class: 'form-label' %>
-              <%= form.file_field :image, class: 'form-control-file' %>
-            </div>
-            
-            <div class="form-group">
-              <%= form.label :name, class: 'form-label' %>
-              <%= form.text_field :name, class: 'form-control', required: true %>
-              <div class="invalid-feedback">
-                グループ名を入力してください。
-              </div>
-            </div>
-            <div class="form-group">
-              <%= form.label :description, class: 'form-label' %>
-              <%= form.text_area :description, class: 'form-control', rows: 5, required: true %>
-              <div class="invalid-feedback">
-                説明を入力してください。
-              </div>
-            </div>
-            <%= form.submit '更新', class: 'btn btn-primary' %>
-          <% end %>
-        </div>
+<div class="card mb-4">
+  <div class="card-header">
+    <h4>グループ編集</h4>
+  </div>
+  <div class="card-body">
+    <%= form_with(model: @group, local: true, url: admin_group_path(@group), class: 'needs-validation', novalidate: true) do |form| %>
+      <div class="form-group">
+        <%= form.label :name, class: 'form-label' %>
+        <%= form.text_field :name, class: 'form-control', required: true %>
       </div>
-    </div>
+      <div class="form-group">
+        <%= form.label :description, class: 'form-label' %>
+        <%= form.text_area :description, class: 'form-control', rows: 5, required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :image, class: 'form-label' %>
+        <%= form.file_field :image, class: 'form-control-file' %>
+      </div>
+      <div class="form-group">
+        <%= form.submit '更新', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
   </div>
 </div>
-
-<script>
-  // Bootstrapのフォームバリデーション
-  (function() {
-    'use strict';
-    window.addEventListener('load', function() {
-      var forms = document.getElementsByClassName('needs-validation');
-      var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener('submit', function(event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-  })();
-</script>

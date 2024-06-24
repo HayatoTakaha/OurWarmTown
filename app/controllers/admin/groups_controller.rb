@@ -1,4 +1,5 @@
 class Admin::GroupsController < ApplicationController
+  before_action :authenticate_admin!
   layout 'admin'
 
   def index
@@ -16,7 +17,7 @@ class Admin::GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     if @group.save
-      redirect_to admin_user_group_path(@group), notice: 'Group was successfully created.'
+      redirect_to admin_group_path(@group), notice: 'Group was successfully created.'
     else
       render :new
     end
@@ -29,7 +30,7 @@ class Admin::GroupsController < ApplicationController
   def update
     @group = Group.find(params[:id])
     if @group.update(group_params)
-      redirect_to admin_user_group_path(@group), notice: 'Group was successfully updated.'
+      redirect_to admin_group_path(@group), notice: 'Group was successfully updated.'
     else
       render :edit
     end
@@ -38,12 +39,12 @@ class Admin::GroupsController < ApplicationController
   def destroy
     @group = Group.find(params[:id])
     @group.destroy
-    redirect_to admin_user_groups_path, notice: 'Group was successfully destroyed.'
+    redirect_to admin_groups_path, notice: 'Group was successfully destroyed.'
   end
 
   private
 
   def group_params
-    params.require(:group).permit(:name, :description)
+    params.require(:group).permit(:name, :description, :image)
   end
 end

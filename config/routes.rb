@@ -43,10 +43,10 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :groups
     resources :users, except: [:new, :create]
     resources :posts, except: [:new, :create]
     resources :comments, except: [:new, :create]
-    resources :groups, except: [:new, :create]
   end
 
   get 'search', to: 'search#index'
