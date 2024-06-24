@@ -1,4 +1,4 @@
-module Admin
+module AdminPanel
   class GroupsController < ApplicationController
     layout 'admin'
 
@@ -17,7 +17,7 @@ module Admin
     def update
       @group = Group.find(params[:id])
       if @group.update(group_params)
-        redirect_to admin_group_path(@group)
+        redirect_to admin_panel_group_path(@group)
       else
         render :edit
       end
@@ -26,7 +26,7 @@ module Admin
     def destroy
       @group = Group.find(params[:id])
       @group.destroy
-      redirect_to admin_groups_path
+      redirect_to admin_panel_groups_path
     end
 
     private
