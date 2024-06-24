@@ -1,5 +1,5 @@
 # app/controllers/admin_user/comments_controller.rb
-class AdminUser::CommentsController < ApplicationController
+class Admin::CommentsController < ApplicationController
   layout 'admin'
 
   def index
@@ -9,6 +9,6 @@ class AdminUser::CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to admin_comments_path, notice: 'コメントが削除されました。' 
+    redirect_to admin_comments_path, notice: 'コメントが削除されました。'
   end
 end

@@ -1,5 +1,5 @@
 # app/controllers/admin_user/groups_controller.rb
-class AdminUser::GroupsController < ApplicationController
+class Admin::GroupsController < ApplicationController
   layout 'admin'
 
   def index

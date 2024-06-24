@@ -1,5 +1,5 @@
 # app/controllers/admin_user/posts_controller.rb
-class AdminUser::PostsController < ApplicationController
+class Admin::PostsController < ApplicationController
   layout 'admin'
 
   def index

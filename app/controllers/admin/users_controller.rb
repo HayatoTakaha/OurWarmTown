@@ -1,5 +1,5 @@
 # app/controllers/admin_user/users_controller.rb
-class AdminUser::UsersController < ApplicationController
+class Admin::UsersController < ApplicationController
   layout 'admin'
 
   def index

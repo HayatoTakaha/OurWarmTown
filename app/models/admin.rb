@@ -1,5 +1,5 @@
 # app/models/admin_user.rb
-class AdminUser < ApplicationRecord
+class Admin < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :trackable
