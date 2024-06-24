@@ -1,53 +1,106 @@
-Rails.application.routes.draw do
-  root 'homes#top'
-  get 'about', to: 'homes#about'
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Warm Town</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', 'data-turbolinks-suppress-warning': true %>
+  <style>
+    body {
+      background-color: #FAF3E0;
+    }
+    .navbar {
+      height: 100px;
+    }
+    .navbar-brand {
+      font-family: 'Dancing Script', cursive;
+      font-size: 32px;
+      font-weight: bold;
+      color: #DDFFFF;
+    }
+    .main-visual {
+      background-image: url('<%= asset_path("shopping_street07.png") %>');
+      background-size: cover;
+      background-position: center;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .main-visual h1 {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-size: 48px;
+    }
+    .info-box {
+      background-color: #f9f9f9;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    .pagination .page-link {
+      color: #007bff;
+    }
+    .btn-custom {
+      display: flex;
+      align-items: center;
+      transition: box-shadow 0.3s, color 0.3s;
+    }
+    .btn-custom i {
+      margin-right: 5px;
+    }
+    .btn-custom:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      color: white;
+    }
+    .btn-fixed-width {
+      width: 100px;
+    }
+    .navbar-nav .nav-item + .nav-item {
+      margin-left: 10px;
+    }
+    .content-box {
+      background-color: #FFFAF0;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+    .footer {
+      background-color: #FFC7AF;
+      color: white;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding: 10px 0;
+      text-align: center;
+    }
+    .content {
+      margin-bottom: 300px;
+    }
+  </style>
+</head>
+<body>
+  <%= render 'layouts/header' %>
+  <div class="main-visual">
+    <h1>Our Warm Town</h1>
+  </div>
+  <div class="container mt-4 content">
+    <% if flash[:notice] %>
+      <div class="alert alert-success"><%= flash[:notice] %></div>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-danger"><%= flash[:alert] %></div>
+    <% end %>
+    <%= yield %>
+  </div>
+  <%= render 'layouts/footer' %>
 
-  devise_for :users, controllers: {
-    registrations: 'users/registrations',
-    sessions: 'users/sessions'
-  }
-
-  devise_for :admins, path: 'admin', controllers: {
-    sessions: 'admin/sessions'
-  }
-
-  resources :users, only: [:edit, :update, :destroy, :show] do
-    collection do
-      get 'mypage', to: 'users#mypage'
-      get 'search', to: 'users#search'
-    end
-    member do
-      get 'liked_posts', to: 'users#liked_posts'
-    end
-  end
-
-  post 'users/guest_sign_in', to: 'users#guest_sign_in'
-
-  resources :posts do
-    member do
-      post 'toggle_like'
-    end
-    collection do
-      get 'search', to: 'posts#search'
-    end
-    resources :comments, only: [:create, :destroy], module: 'users'
-  end
-
-  resources :groups do
-    member do
-      post 'join'
-      delete 'leave'
-    end
-    resources :posts, only: [:new, :create, :index]
-    resources :user_groups, only: [:create, :destroy]
-  end
-
-  namespace :admin_panel, path: 'admin' do
-    resources :users, except: [:new, :create]
-    resources :posts, except: [:new, :create]
-    resources :comments, except: [:new, :create]
-    resources :groups, except: [:new, :create]
-  end
-
-  get 'search', to: 'search#index'
-end
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/96781c3f85.js" crossorigin="anonymous"></script>
+</body>
+</html>
