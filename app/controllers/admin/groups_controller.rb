@@ -1,4 +1,3 @@
-# app/controllers/admin_user/groups_controller.rb
 class Admin::GroupsController < ApplicationController
   layout 'admin'
 

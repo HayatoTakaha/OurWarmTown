@@ -1,4 +1,3 @@
-# app/controllers/admin_user/comments_controller.rb
 class Admin::CommentsController < ApplicationController
   layout 'admin'
 

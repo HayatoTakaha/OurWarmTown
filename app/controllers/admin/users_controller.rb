@@ -1,4 +1,3 @@
-# app/controllers/admin_user/users_controller.rb
 class Admin::UsersController < ApplicationController
   layout 'admin'
 

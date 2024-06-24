@@ -1,4 +1,3 @@
-# app/controllers/admin_user/posts_controller.rb
 class Admin::PostsController < ApplicationController
   layout 'admin'
 
