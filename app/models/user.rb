@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # Associations
-  has_many :owned_groups, class_name: 'Group', foreign_key: 'owner_id', dependent: :destroy
+  has_many :owned_groups, class_name: 'Group', foreign_key: 'new_owner_id', dependent: :destroy
   has_many :user_groups
   has_many :groups, through: :user_groups
   has_many :posts, dependent: :destroy
