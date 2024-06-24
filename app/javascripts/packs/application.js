@@ -27,3 +27,7 @@ document.addEventListener("turbolinks:load", function() {
     console.log('Error sending DELETE request');
   });
 });
+
+//= require jquery
+//= require jquery_ujs
+//= require_tree .

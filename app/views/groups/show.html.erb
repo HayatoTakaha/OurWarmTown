@@ -49,7 +49,7 @@
                     <p class="card-text" style="font-size: 0.8em;"><%= truncate(post.content, length: 8) %></p>
                     <div class="d-flex align-items-center">
                       <i class="fas fa-users mr-1"></i>
-                      <span class="mr-2"><%= truncate(post.group.name, length: 6) %></span>
+                      <span class="mr-2"><%= truncate(post.group.name, length: 4) %></span>
                       <i class="fas fa-heart mr-1"></i>
                       <span class="mr-2"><%= post.likes.count %></span>
                       <i class="fas fa-comment mr-1"></i>

@@ -46,7 +46,7 @@ class GroupsController < ApplicationController
 
   def join
     unless @group.users.include?(current_user)
-      @group.users << current_user
+      @group.user_groups.create(user: current_user, joined_at: Time.current)
       redirect_to @group, notice: 'グループに参加しました。'
     end
   end

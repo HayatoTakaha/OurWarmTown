@@ -1,2 +1,2 @@
-document.querySelector('#comments').innerHTML = "<%= j(render 'comments/comments', post: @post) %>";
-document.querySelector('#comment_form').reset();
+$("#comments").prepend("<%= j render partial: 'comments/comment', locals: { comment: @comment } %>");
+$("#comment-form")[0].reset();

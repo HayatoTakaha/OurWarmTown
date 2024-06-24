@@ -1,29 +1,15 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :toggle_like]
-  before_action :set_group, only: [:new, :create]
-
-  def index
-    if params[:group_id]
-      @group = Group.find(params[:group_id])
-      @posts = @group.posts
-    else
-      @posts = Post.all
-    end
-  end
-
-  def show
-  end
+  before_action :set_post, only: [:show, :toggle_like]
 
   def new
-    @post = current_user.posts.build
-    @post.group = @group if @group
+    @group = Group.find(params[:group_id])
+    @post = @group.posts.build
   end
 
   def create
-    @post = current_user.posts.build(post_params)
-    @post.group = @group if @group
-
+    @group = Group.find(post_params[:group_id])
+    @post = @group.posts.build(post_params)
+    @post.user = current_user
     if @post.save
       redirect_to @post, notice: '投稿が作成されました。'
     else
@@ -31,46 +17,37 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
-  def update
-    if @post.update(post_params)
-      redirect_to @post, notice: '投稿が更新されました。'
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @post.destroy
-    redirect_to posts_url, notice: '投稿が削除されました。'
-  end
-
   def toggle_like
-    retries = 0
-    begin
-      ActiveRecord::Base.transaction do
-        @like = current_user.likes.find_by(post: @post)
-        if @like
-          @like.destroy!
-        else
-          current_user.likes.create!(post: @post)
-        end
-      end
-      render json: { liked: current_user.liked?(@post), likes_count: @post.likes.count }
-    rescue ActiveRecord::StatementInvalid => e
-      if e.message.include?("database is locked")
-        retries += 1
-        if retries <= 3
-          sleep 0.2
-          retry
-        else
-          render json: { error: 'Database is locked. Please try again later.' }, status: :service_unavailable
-        end
+    retries ||= 0
+
+    ActiveRecord::Base.transaction do
+      if current_user.liked?(@post)
+        like = current_user.likes.find_by(post_id: @post.id)
+        like.destroy!
       else
-        render json: { error: 'An unexpected error occurred.' }, status: :internal_server_error
+        @post.likes.create!(user: current_user)
       end
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @post }
+      format.json { render json: { liked: current_user.liked?(@post), likes_count: @post.likes.count } }
+    end
+
+  rescue ActiveRecord::StatementInvalid => e
+    if e.message.include?('SQLite3::BusyException')
+      retries += 1
+      if retries < 5
+        sleep(0.1 * retries)
+        retry
+      else
+        respond_to do |format|
+          format.html { redirect_to @post, alert: 'サービス利用不可です。' }
+          format.json { render status: 503, json: { error: 'サービス利用不可です。' } }
+        end
+      end
+    else
+      raise
     end
   end
 
@@ -78,10 +55,6 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
-  end
-
-  def set_group
-    @group = Group.find(params[:group_id]) if params[:group_id]
   end
 
   def post_params

@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     collection do
       get 'search', to: 'posts#search'
     end
-    resources :comments, only: [:create, :destroy], module: 'users'
+    resources :comments, only: [:create, :destroy]
   end
 
   resources :groups do
