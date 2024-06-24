@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
-  devise_for :admins, path: 'admin', controllers: {
+  devise_for :admin_users, path: 'admin', controllers: {
     sessions: 'admin/sessions'
   }
 

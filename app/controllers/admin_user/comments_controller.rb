@@ -1,5 +1,5 @@
 # app/controllers/admin/comments_controller.rb
-class Admin::CommentsController < ApplicationController
+class AdminU::CommentsController < ApplicationController
   layout 'admin'
 
   def index
