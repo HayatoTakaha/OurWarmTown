@@ -1,4 +1,3 @@
-# config/routes.rb
 Rails.application.routes.draw do
   root 'homes#top'
   get 'about', to: 'homes#about'
@@ -43,7 +42,7 @@ Rails.application.routes.draw do
     resources :user_groups, only: [:create, :destroy]
   end
 
-  namespace :admin_panel, path: 'admin' do
+  namespace :admin do
     resources :users, except: [:new, :create]
     resources :posts, except: [:new, :create]
     resources :comments, except: [:new, :create]
