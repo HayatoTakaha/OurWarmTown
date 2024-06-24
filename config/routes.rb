@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
-  devise_for :admin, path: 'admin', controllers: {
+  devise_for :admins, path: 'admin', controllers: {
     sessions: 'admin/sessions'
   }
 
@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     resources :user_groups, only: [:create, :destroy]
   end
 
-  namespace :admin, path: 'admin' do
+  namespace :admin do
     resources :users, except: [:new, :create]
     resources :posts, except: [:new, :create]
     resources :comments, except: [:new, :create]
