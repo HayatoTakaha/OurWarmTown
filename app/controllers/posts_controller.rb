@@ -1,18 +1,17 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :toggle_like]
+  before_action :set_group, only: [:new, :create], if: -> { params[:group_id].present? }
   
   def index
     @posts = Post.all
   end
   
   def new
-    @group = Group.find(params[:group_id])
-    @post = @group.posts.build
+    @post = @group ? @group.posts.build : Post.new
   end
 
   def create
-    @group = Group.find(post_params[:group_id])
-    @post = @group.posts.build(post_params)
+    @post = @group ? @group.posts.build(post_params) : Post.new(post_params)
     @post.user = current_user
     if @post.save
       redirect_to @post, notice: '投稿が作成されました。'
@@ -25,6 +24,12 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def set_group
+    @group = Group.find(params[:group_id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to groups_path, alert: 'グループが見つかりません。'
   end
 
   def post_params

@@ -1,38 +1,56 @@
-<div class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
-  <div class="col-md-6">
-    <%= form_with(model: @post, local: true, html: { multipart: true }) do |form| %>
-      <% if @post.errors.any? %>
-        <div id="error_explanation">
-          <ul>
-            <% @post.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card border-0">
+        <div class="card-body">
+          <%= form_with(model: @post, local: true, html: { multipart: true }) do |form| %>
+            <% if @post.errors.any? %>
+              <div id="error_explanation" class="alert alert-danger">
+                <ul>
+                  <% @post.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
             <% end %>
-          </ul>
+
+            <div class="form-group">
+              <%= form.label :images, "画像", for: 'post_images', class: 'form-label' %>
+              <%= form.file_field :images, id: 'post_images', multiple: true, class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= form.label :title, "タイトル", for: 'post_title', class: 'form-label' %>
+              <%= form.text_field :title, id: 'post_title', class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= form.label :content, "内容", for: 'post_content', class: 'form-label' %>
+              <%= form.text_area :content, id: 'post_content', class: 'form-control', rows: 5 %>
+            </div>
+
+            <div class="text-center">
+              <%= form.submit "投稿", class: 'btn btn-primary' %>
+            </div>
+          <% end %>
         </div>
-      <% end %>
-
-      <div class="form-group">
-        <%= form.label :images, "画像" %>
-        <%= form.file_field :images, multiple: true, class: 'form-control' %>
       </div>
-
-      <div class="form-group">
-        <%= form.label :title, "タイトル" %>
-        <%= form.text_field :title, class: 'form-control' %>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :content, "内容" %>
-        <%= form.text_area :content, class: 'form-control' %>
-      </div>
-
-      <% if @group %>
-        <%= form.hidden_field :group_id, value: @group.id %>
-      <% end %>
-
-      <div class="actions text-center">
-        <%= form.submit "投稿", class: 'btn btn-primary' %>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>
+
+<style>
+  .form-label {
+    font-weight: bold;
+    color: #495057;
+  }
+
+  .form-control {
+    margin-bottom: 15px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+</style>

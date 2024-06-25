@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       get 'search', to: 'posts#search'
     end
     resources :comments, only: [:create, :destroy]
-    resource :likes, only: [:create, :destroy]
+    resource :like, only: [:create, :destroy]
   end
 
   resources :groups do
@@ -36,7 +36,7 @@ Rails.application.routes.draw do
       post 'join'
       delete 'leave'
     end
-    resources :posts, only: [:new, :create, :index]
+    resources :posts, only: [:new, :create, :index], module: :groups
     resources :user_groups, only: [:create, :destroy]
   end
 
