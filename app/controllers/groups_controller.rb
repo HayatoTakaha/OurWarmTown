@@ -9,11 +9,11 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group_posts = @group.posts.order(created_at: :desc).page(params[:page]).per(6)
-    @is_owner = @group.owner == current_user
-    @is_member = @group.users.include?(current_user)
+    @is_owner = current_user == @group.owner
+    @is_member = @group.users.exists?(current_user.id)
+    @group_posts = @group.posts.order(created_at: :desc).page(params[:page])
   end
-
+  
   def new
     @group = current_user.owned_groups.build
   end
@@ -41,7 +41,7 @@ class GroupsController < ApplicationController
 
   def destroy
     @group.destroy
-    redirect_to groups_url, notice: 'グループが削除されました。'
+    redirect_to root_path, notice: 'グループが削除されました。'
   end
 
   def join

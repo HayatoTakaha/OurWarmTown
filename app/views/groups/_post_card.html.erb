@@ -1,0 +1,32 @@
+<!--groups/post_card-->
+<div class="col-md-4">
+  <div class="card mt-3" style="max-width: 300px;">
+    <div class="row no-gutters">
+      <% if post.images.attached? %>
+        <div class="col-md-4">
+          <%= image_tag url_for(post.images.first), class: 'img-fluid', alt: '投稿画像', style: 'width: 100px; height: 70px; object-fit: cover;' %>
+        </div>
+      <% end %>
+      <div class="col-md-8">
+        <div class="card-body">
+          <p class="mb-1" style="font-size: 0.8em;">
+            <strong><%= post.user.name %></strong>
+            <span class="text-muted" style="font-size: 0.7em;"><%= post.created_at.in_time_zone('Tokyo').strftime("%Y-%m-%d %H:%M") %></span>
+          </p>
+          <h5 class="card-title" style="font-size: 1em;">
+            <%= link_to truncate(post.title, length: 8), post_path(post), class: 'text-decoration-none' %>
+          </h5>
+          <p class="card-text" style="font-size: 0.8em;"><%= truncate(post.content, length: 8) %></p>
+          <div class="d-flex align-items-center">
+            <i class="fas fa-users mr-1"></i>
+            <span class="mr-2"><%= truncate(post.group.name, length: 4) %></span>
+            <i class="fas fa-heart mr-1"></i>
+            <span class="mr-2"><%= post.likes.count %></span>
+            <i class="fas fa-comment mr-1"></i>
+            <span><%= post.comments.count %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<!--group_post_actions-->
+<% if is_member %>
+  <%= link_to '投稿する', new_post_path(group_id: group.id), class: 'btn btn-success btn-sm btn-custom mb-3' %>
+<% else %>
+  <%= form_with url: join_group_path(group), method: :post do %>
+    <%= submit_tag 'このグループに参加', class: 'btn btn-primary btn-sm btn-custom mb-3' %>
+  <% end %>
+<% end %>

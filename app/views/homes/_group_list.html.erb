@@ -1,0 +1,18 @@
+<div class="list-group mt-4">
+  <% groups.each do |group| %>
+    <div class="list-group-item d-flex align-items-start content-box">
+      <% if group.image.attached? %>
+        <img src="<%= url_for(group.image) %>" alt="グループ写真" class="img-thumbnail mr-3" style="width: 110px; height: 110px;">
+      <% else %>
+        <img src="https://via.placeholder.com/100" alt="デフォルト画像" class="img-thumbnail mr-3" style="width: 100px; height: 100px;">
+      <% end %>
+      <div class="flex-grow-1">
+        <h6 class="mb-1"><%= group.name %></h6>
+        <%= link_to group_path(group), class: 'btn btn-primary btn-sm btn-fixed-width mt-2' do %>
+          <i class="fas fa-info-circle"></i> 詳細
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <%= paginate groups %>
+</div>

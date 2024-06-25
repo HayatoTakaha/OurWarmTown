@@ -19,7 +19,7 @@
                   </div>
                   <% @post.images.each do |image| %>
                     <div class="col-md-12 mb-2" style="margin-top: 70px;">
-                      <%= image_tag image.variant(resize: '150x150').processed, class: 'img-fluid', alt: '投稿画像' %>
+                      <%= image_tag image.variant(resize: '260x260').processed, class: 'img-fluid', alt: '投稿画像' %>
                     </div>
                   <% end %>
                 </div>

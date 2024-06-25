@@ -36,7 +36,6 @@ Rails.application.routes.draw do
       post 'join'
       delete 'leave'
     end
-    resources :posts, only: [:new, :create, :index], module: :groups
     resources :user_groups, only: [:create, :destroy]
   end
 

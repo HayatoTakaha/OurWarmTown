@@ -1,0 +1,4 @@
+<!--group_image-->
+<% if group.image.attached? %>
+  <%= image_tag url_for(group.image), class: 'img-fluid mb-3' %>
+<% end %>

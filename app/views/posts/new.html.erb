@@ -14,6 +14,8 @@
               </div>
             <% end %>
 
+            <%= form.hidden_field :group_id, value: @group.id %>
+
             <div class="form-group">
               <%= form.label :images, "画像", for: 'post_images', class: 'form-label' %>
               <%= form.file_field :images, id: 'post_images', multiple: true, class: 'form-control' %>

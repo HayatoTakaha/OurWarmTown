@@ -1,6 +1,6 @@
 class HomesController < ApplicationController
   def top
-    @groups = Group.includes(:posts).page(params[:group_page]).per(8)
-    @recent_posts = Post.order(created_at: :desc).page(params[:post_page]).per(8)
+   @groups = Group.order(created_at: :desc).page(params[:page]).per(6)
+    @recent_posts = Post.where(group_id: nil).order(created_at: :desc).page(params[:page]).per(6)
   end
 end

@@ -3,9 +3,12 @@ class PostsController < ApplicationController
   before_action :set_group, only: [:new, :create], if: -> { params[:group_id].present? }
   
   def index
-    @posts = Post.all
+    @posts = Post.order(created_at: :desc).page(params[:page]).per(8)
   end
   
+  def show
+  end
+
   def new
     @post = @group ? @group.posts.build : Post.new
   end
@@ -14,7 +17,7 @@ class PostsController < ApplicationController
     @post = @group ? @group.posts.build(post_params) : Post.new(post_params)
     @post.user = current_user
     if @post.save
-      redirect_to @post, notice: '投稿が作成されました。'
+      redirect_to @group ? group_path(@group) : post_path(@post), notice: '投稿が作成されました。'
     else
       render :new
     end

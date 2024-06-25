@@ -1,0 +1,7 @@
+<!--group_action-->
+<% if is_owner %>
+  <%= link_to 'グループ編集', edit_group_path(group), class: 'btn btn-primary btn-block btn-sm mt-3 btn-custom' %>
+<% end %>
+<% if is_member %>
+  <%= link_to 'グループ退会', leave_group_path(group), method: :delete, class: 'btn btn-danger btn-block btn-sm mt-3 btn-custom', data: { confirm: '本当に退会しますか？' } %>
+<% end %>

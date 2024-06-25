@@ -8,14 +8,13 @@ class Post < ApplicationRecord
   # Validations
   validates :title, presence: true
   validates :content, presence: true
-  validate :group_presence
+  validate :group_presence_if_id_present
 
   private
 
-  def group_presence
+  def group_presence_if_id_present
     if group_id.present? && group.nil?
       errors.add(:group, "must exist")
     end
   end
 end
-
