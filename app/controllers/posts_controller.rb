@@ -28,11 +28,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      if @group
-        redirect_to group_path(@group), notice: '投稿が更新されました。'
-      else
-        redirect_to post_path(@post), notice: '投稿が更新されました。'
-      end
+      redirect_to @group ? group_path(@group) : post_path(@post), notice: '投稿が更新されました。'
     else
       render :edit
     end
@@ -47,13 +43,13 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to posts_path, alert: '投稿が見つかりません。'
   end
 
   def set_group
-    @group = Group.find(params[:group_id]) if params[:group_id].present?
-  rescue ActiveRecord::RecordNotFound
-    @group = nil
-    redirect_to groups_path, alert: 'グループが見つかりません。' if params[:group_id].present?
+    @group = Group.find_by(id: params[:group_id])
+    redirect_to groups_path, alert: 'グループが見つかりません。' if params[:group_id].present? && @group.nil?
   end
 
   def post_params

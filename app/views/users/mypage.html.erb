@@ -14,7 +14,7 @@
     <div class="recent-posts-section ml-5"> 
       <h2 class="display-6 my-4" style="font-family: 'Dancing Script', cursive; color: #5a5a5a; text-align: left;">最近の投稿</h2>
       <div class="row justify-content-start"> 
-        <% @posts.order(created_at: :desc).limit(3).each do |post| %> <!-- 最新の投稿3つを表示 -->
+        <% current_user.posts.order(created_at: :desc).limit(3).each do |post| %> <!-- 最新の投稿3つを表示 -->
           <div class="col-md-4 mb-4">
             <div class="card post p-3 border rounded content-box">
               <div class="d-flex align-items-center mb-2">
