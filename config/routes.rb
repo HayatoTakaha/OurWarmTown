@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     sessions: 'admin/sessions'
   }
 
-  resources :users, only: [:edit, :update, :destroy, :show] do
+  resources :users, only: [:index, :edit, :update, :destroy, :show] do
     collection do
       get 'mypage', to: 'users#mypage'
       get 'search', to: 'users#search'
