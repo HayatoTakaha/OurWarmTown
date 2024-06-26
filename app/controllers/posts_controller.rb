@@ -40,7 +40,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: '投稿が削除されました。'
+    redirect_to root_path, notice: '投稿が削除されました。'
   end
 
   private
