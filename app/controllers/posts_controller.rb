@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :toggle_like]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :toggle_like]
   before_action :set_group, only: [:new, :create, :edit, :update]
 
   def index
@@ -36,6 +36,11 @@ class PostsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @post.destroy
+    redirect_to posts_path, notice: '投稿が削除されました。'
   end
 
   private
