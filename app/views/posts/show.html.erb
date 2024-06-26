@@ -19,18 +19,18 @@
                   </div>
                   <% @post.images.each do |image| %>
                     <div class="col-md-12 mb-2" style="margin-top: 70px;">
-                      <%= image_tag image.variant(resize: '260x260').processed, class: 'img-fluid', alt: '投稿画像' %>
+                      <%= image_tag image.variant(resize: '300x300').processed, class: 'img-fluid', alt: '投稿画像' %>
                     </div>
                   <% end %>
                 </div>
               </div>
-              <div class="col-md-6 d-flex flex-column justify-content-start">
+              <div class="col-md-5 d-flex flex-column justify-content-start">
                 <p class="text-muted"><%= @post.created_at.in_time_zone('Tokyo').strftime("%Y年%m月%d日 %H:%M") %></p>
                 <h2 class="card-title mt-3"><%= @post.title %></h2>
                 <p class="card-text"><%= @post.content %></p>
               </div>
             <% else %>
-              <div class="col-md-12">
+              <div class="col-md-10">
                 <div class="d-flex align-items-center mb-3" style="padding-bottom: 5px;">
                   <%= link_to user_path(@post.user), class: 'd-flex align-items-center', style: 'text-decoration: none;' do %>
                     <% if @post.user.profile_image.attached? %>

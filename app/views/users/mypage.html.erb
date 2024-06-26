@@ -11,25 +11,56 @@
     <%= link_to '全ての投稿を見る', posts_path, class: 'btn btn-secondary mt-2' %> 
   </div>
   <div class="col-md-9">
-    <div class="recent-posts-section" style="margin-left: 100px;"> 
+    <div class="recent-posts-section ml-5"> 
       <h2 class="display-6 my-4" style="font-family: 'Dancing Script', cursive; color: #5a5a5a; text-align: left;">最近の投稿</h2>
       <div class="row justify-content-start"> 
         <% @posts.order(created_at: :desc).limit(3).each do |post| %> <!-- 最新の投稿3つを表示 -->
-          <div class="col-md-3 mb-2 px-2"> 
-            <div class="post p-3 border rounded content-box" style="width: 180px; height: 180px; overflow: hidden;">
-              <h4 class="font-italic post-title">
-                <%= link_to truncate(post.title, length: 8), post, class: 'text-decoration-none' %>
-              </h4>
-              <p class="post-content"><%= truncate(post.content, length: 8) %></p> 
+          <div class="col-md-4 mb-4">
+            <div class="card post p-3 border rounded content-box">
+              <div class="d-flex align-items-center mb-2">
+                <% if post.user.profile_image.attached? %>
+                  <%= image_tag post.user.profile_image.variant(resize: "80x80", crop: "50x50+0+0", gravity: "center", quality: "85"), class: 'rounded-circle', style: 'width: 40px; height: 40px; object-fit: cover;', alt: 'プロフィール画像' %>
+                <% else %>
+                  <%= image_tag 'default_profile.png', class: 'rounded-circle', style: 'width: 40px; height: 40px; object-fit: cover;', alt: 'デフォルト画像' %>
+                <% end %>
+                <div class="ml-2">
+                  <p class="mb-0" style="font-size: 0.9em;"><%= post.user.name %></p>
+                  <p class="text-muted mb-0" style="font-size: 0.8em;"><%= post.created_at.in_time_zone('Tokyo').strftime("%Y年%m月%d日 %H:%M") %></p>
+                </div>
+              </div>
               <% if post.images.attached? %>
-                <div class="row">
-                  <% post.images.each do |image| %>
-                    <div class="col-md-12 mb-2">
-                      <%= image_tag image, class: 'img-fluid', style: 'max-height: 80px; max-width: 100%; object-fit: cover;', alt: '投稿画像' %> 
-                    </div>
-                  <% end %>
+                <div class="mb-2">
+                  <%= image_tag post.images.first, class: 'img-fluid', style: 'width: 100%; height: 150px; object-fit: cover;', alt: '投稿画像' %>
+                </div>
+              <% else %>
+                <div class="mb-2">
+                  <%= image_tag 'default_image.jpg', class: 'img-fluid', style: 'width: 100%; height: 150px; object-fit: cover;', alt: 'デフォルト画像' %>
                 </div>
               <% end %>
+              <div>
+                <h5 class="font-italic post-title mb-1" style="font-size: 1em;">
+                  <%= link_to truncate(post.title, length: 10), post, class: 'text-decoration-none' %>
+                </h5>
+                <p class="post-content" style="font-size: 0.9em;">
+                  <%= truncate(post.content, length: 10) %>
+                </p>
+              </div>
+              <div class="d-flex justify-content-start align-items-center mt-3">
+                <div class="d-flex align-items-center mr-3">
+                  <i class="fas fa-heart"></i>
+                  <p class="text-muted mb-0 ml-1"><%= post.likes.count %></p>
+                </div>
+                <div class="d-flex align-items-center mr-3">
+                  <i class="fas fa-comment"></i>
+                  <p class="text-muted mb-0 ml-1"><%= post.comments.count %></p>
+                </div>
+                <% if post.group.present? %>
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-users fa-sm mr-1"></i>
+                    <p class="text-muted mb-0"><%= truncate(post.group.name, length: 5) %></p>
+                  </div>
+                <% end %>
+              </div>
             </div>
           </div>
         <% end %>
@@ -41,8 +72,10 @@
 <style>
   .content-box {
     background-color: #FFFAF0;
-    margin: 5px;
-    overflow: hidden; /* ボックス内にコンテンツを収める */
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
   }
 
   .post-title a {
@@ -50,13 +83,13 @@
   }
 
   .post-title a:hover {
-    color: #ff6347; 
+    color: #ff6347;
   }
 
   .post-content {
-    margin-bottom: 5px; 
-    white-space: nowrap; /* テキストが折り返されないようにする */
-    overflow: hidden; /* ボックスをはみ出さないようにする */
-    text-overflow: ellipsis; /* テキストが切れた部分に「…」を表示する */
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>
