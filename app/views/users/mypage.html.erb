@@ -18,13 +18,8 @@
           <div class="col-md-4 mb-4">
             <div class="card post p-3 border rounded content-box">
               <div class="d-flex align-items-center mb-2">
-                <% if post.user.profile_image.attached? %>
-                  <%= image_tag post.user.profile_image.variant(resize: "80x80", crop: "50x50+0+0", gravity: "center", quality: "85"), class: 'rounded-circle', style: 'width: 40px; height: 40px; object-fit: cover;', alt: 'プロフィール画像' %>
-                <% else %>
-                  <%= image_tag 'default_profile.png', class: 'rounded-circle', style: 'width: 40px; height: 40px; object-fit: cover;', alt: 'デフォルト画像' %>
-                <% end %>
+                <%= render partial: 'layouts/profile_image', locals: { user: post.user } %>
                 <div class="ml-2">
-                  <p class="mb-0" style="font-size: 0.9em;"><%= post.user.name %></p>
                   <p class="text-muted mb-0" style="font-size: 0.8em;"><%= post.created_at.in_time_zone('Tokyo').strftime("%Y年%m月%d日 %H:%M") %></p>
                 </div>
               </div>
