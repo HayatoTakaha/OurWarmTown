@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
     member do
       get 'liked_posts', to: 'users#liked_posts'
-      get 'posts', to: 'users#index'
+      get 'posts', to: 'users#user_posts'
     end
   end
 
