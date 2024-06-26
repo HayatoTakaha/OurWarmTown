@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :toggle_like]
-  before_action :set_group, only: [:new, :create], if: -> { params[:group_id].present? }
-  
+  before_action :set_group, only: [:new, :create]
+
   def index
     @posts = Post.order(created_at: :desc).page(params[:page]).per(8)
   end
@@ -30,9 +30,10 @@ class PostsController < ApplicationController
   end
 
   def set_group
-    @group = Group.find(params[:group_id])
+    @group = Group.find(params[:group_id]) if params[:group_id].present?
   rescue ActiveRecord::RecordNotFound
-    redirect_to groups_path, alert: 'グループが見つかりません。'
+    @group = nil
+    redirect_to groups_path, alert: 'グループが見つかりません。' if params[:group_id].present?
   end
 
   def post_params
