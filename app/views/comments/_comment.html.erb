@@ -1,6 +1,6 @@
 <div id="comment__<%= comment.id %>" class="d-flex justify-content-between align-items-center">
   <p class="mb-1"><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
-  <% if comment.user == current_user %>
+  <% if current_user && comment.user == current_user %>
     <%= link_to '削除', post_comment_path(comment.post, comment), remote: true, method: :delete, class: 'btn btn-danger btn-sm ml-2' %>
   <% end %>
 </div>

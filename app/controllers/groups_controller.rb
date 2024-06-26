@@ -9,11 +9,16 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @is_owner = current_user == @group.owner
-    @is_member = @group.users.exists?(current_user.id)
+    if user_signed_in?
+      @is_owner = current_user == @group.owner
+      @is_member = @group.users.exists?(current_user.id)
+    else
+      @is_owner = false
+      @is_member = false
+    end
     @group_posts = @group.posts.order(created_at: :desc).page(params[:page])
   end
-  
+
   def new
     @group = current_user.owned_groups.build
   end

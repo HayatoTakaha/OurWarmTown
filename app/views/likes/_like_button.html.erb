@@ -1,9 +1,11 @@
 <div class="d-flex justify-content-start mt-3">
   <div id="like-button__<%= post.id %>" class="d-flex align-items-center">
-    <% if current_user.liked?(post) %>
+    <% if current_user && current_user.liked?(post) %>
       <%= render 'likes/unlike', post: post %>
-    <% else %>
+    <% elsif current_user %>
       <%= render 'likes/like', post: post %>
+    <% else %>
+      <p class="text-muted">ログインして「いいね」を押してください。</p>
     <% end %>
   </div>
 </div>

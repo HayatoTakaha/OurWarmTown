@@ -1,7 +1,12 @@
-<%= form_with(model: [post, Comment.new], local: false) do |form| %>
-  <div class="form-group">
-    <%= form.label :content, "コメントを追加" %>
-    <%= form.text_area :content, rows: 3, class: "form-control", id: 'comment-form' %>
-  </div>
-  <%= form.submit "コメントする", class: "btn btn-primary" %>
+<% if current_user %>
+  <%= form_with(model: [post, Comment.new], local: false) do |form| %>
+    <div class="form-group">
+      <%= form.label :content, "コメントを追加" %>
+      <%= form.text_area :content, rows: 3, class: "form-control", id: 'comment-form' %>
+    </div>
+    <%= form.submit "コメントする", class: "btn btn-primary" %>
+  <% end %>
+<% else %>
+  <p>コメントを追加するにはログインしてください。</p>
+  <%= link_to 'ログイン', new_user_session_path, class: 'btn btn-primary' %>
 <% end %>
