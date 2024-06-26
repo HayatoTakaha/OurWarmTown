@@ -1,10 +1,9 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :toggle_like]
+  before_action :set_post, only: [:show, :edit, :update, :toggle_like]
   before_action :set_group, only: [:new, :create]
-  before_action :authenticate_user!
 
   def index
-    @posts = current_user.posts.order(created_at: :desc).page(params[:page]).per(8)
+    @posts = Post.order(created_at: :desc).page(params[:page]).per(8)
   end
   
   def show
@@ -21,6 +20,17 @@ class PostsController < ApplicationController
       redirect_to @group ? group_path(@group) : post_path(@post), notice: '投稿が作成されました。'
     else
       render :new
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @post.update(post_params)
+      redirect_to @group ? group_path(@group) : post_path(@post), notice: '投稿が更新されました。'
+    else
+      render :edit
     end
   end
 
