@@ -1,9 +1,10 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :toggle_like]
   before_action :set_group, only: [:new, :create]
+  before_action :authenticate_user!
 
   def index
-    @posts = Post.order(created_at: :desc).page(params[:page]).per(8)
+    @posts = current_user.posts.order(created_at: :desc).page(params[:page]).per(8)
   end
   
   def show
