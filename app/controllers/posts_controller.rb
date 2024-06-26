@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :set_group, only: [:new, :create, :edit, :update]
 
   def index
-    @posts = Post.order(created_at: :desc).page(params[:page]).per(8)
+    @posts = current_user.posts.order(created_at: :desc).page(params[:page]).per(8)
   end
   
   def show
