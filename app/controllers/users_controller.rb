@@ -4,14 +4,18 @@ class UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @posts = @user.posts.order(created_at: :desc).page(params[:page])
+    if @user.nil?
+      redirect_to new_user_session_path, alert: 'ログインしてください。'
+    else
+      @posts = @user.posts.order(created_at: :desc).page(params[:page])
+    end
   end
 
   def edit
   end
 
   def show
-    @posts = @user.posts.order(created_at: :desc).page(params[:page])
+    @posts = @user.posts.order(created_at: :desc).limit(3)
   end
 
   def update
