@@ -7,9 +7,8 @@ class UsersController < ApplicationController
     @posts = @user.posts.page(params[:page])
   end
   
-  def user_posts
+  def index
     @posts = @user.posts.order(created_at: :desc).page(params[:page]).per(8)
-    render :user_posts
   end
   
   def edit
