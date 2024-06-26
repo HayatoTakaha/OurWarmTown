@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :toggle_like]
-  before_action :set_group, only: [:new, :create]
+  before_action :set_group, only: [:new, :create, :edit, :update]
 
   def index
     @posts = Post.order(created_at: :desc).page(params[:page]).per(8)
@@ -28,7 +28,11 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @group ? group_path(@group) : post_path(@post), notice: '投稿が更新されました。'
+      if @group
+        redirect_to group_path(@group), notice: '投稿が更新されました。'
+      else
+        redirect_to post_path(@post), notice: '投稿が更新されました。'
+      end
     else
       render :edit
     end
