@@ -1,0 +1,9 @@
+<!-- app/views/layouts/_profile_image.html.erb -->
+<%= link_to user_path(user), class: 'd-flex align-items-center', style: 'text-decoration: none;' do %>
+  <% if user.profile_image.attached? %>
+    <%= image_tag user.profile_image.variant(resize: "50x50").processed, size: "50x50", class: 'rounded-circle', alt: 'プロフィール画像' %>
+  <% else %>
+    <%= image_tag asset_path('default_profile.png'), size: "50x50", class: 'rounded-circle', alt: 'デフォルトプロフィール画像' %>
+  <% end %>
+  <span class="ml-2" style="color: #5a5a5a;"><%= user.name %></span>
+<% end %>
