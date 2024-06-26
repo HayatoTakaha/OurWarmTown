@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
   
   def index
-    @posts = Post.where.not(user: current_user).order(created_at: :desc).page(params[:page]).per(8)
+    @posts = @user.posts.order(created_at: :desc).page(params[:page]).per(8)
   end
   
   def edit
