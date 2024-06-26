@@ -4,11 +4,7 @@ class UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    if @user.nil?
-      redirect_to new_user_session_path, alert: 'ログインしてください。'
-    else
-      @posts = @user.posts.order(created_at: :desc).page(params[:page])
-    end
+    @posts = @user.posts.page(params[:page])
   end
 
   def edit
@@ -36,11 +32,9 @@ class UsersController < ApplicationController
   end
 
   def search
-    # 検索機能の実装
   end
 
   def search_results
-    # 検索結果の表示
   end
 
   private

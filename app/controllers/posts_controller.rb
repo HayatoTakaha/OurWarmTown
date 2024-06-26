@@ -1,12 +1,11 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :toggle_like]
   before_action :set_group, only: [:new, :create, :edit, :update]
-  before_action :set_current_user_posts, only: [:index, :mypage]
 
   def index
-    @posts = @user_posts.order(created_at: :desc).page(params[:page]).per(8)
+    @posts = current_user.posts.order(created_at: :desc).page(params[:page]).per(8)
   end
-
+  
   def show
   end
 
@@ -48,6 +47,8 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: '投稿が見つかりませんでした。'
   end
 
   def set_group
@@ -59,9 +60,5 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :content, :group_id, images: [])
-  end
-
-  def set_current_user_posts
-    @user_posts = current_user.posts
   end
 end

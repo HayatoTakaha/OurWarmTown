@@ -12,11 +12,7 @@
                   </div>
                   <% @post.images.each do |image| %>
                     <div class="col-md-12 mb-2" style="margin-top: 70px;">
-                      <% begin %>
-                        <%= image_tag image.variant(resize: '300x300').processed, class: 'img-fluid', alt: '投稿画像' %>
-                      <% rescue => e %>
-                        <p class="text-danger">画像の処理中にエラーが発生しました: <%= e.message %></p>
-                      <% end %>
+                      <%= image_tag image.variant(resize: '300x300').processed, class: 'img-fluid', alt: '投稿画像' %>
                     </div>
                   <% end %>
                 </div>
