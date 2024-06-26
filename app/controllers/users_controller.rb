@@ -4,14 +4,14 @@ class UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @posts = @user.posts.page(params[:page])
+    @posts = @user.posts.order(created_at: :desc).page(params[:page])
   end
 
   def edit
   end
 
   def show
-    @posts = @user.posts.order(created_at: :desc).limit(3)
+    @posts = @user.posts.order(created_at: :desc).page(params[:page])
   end
 
   def update

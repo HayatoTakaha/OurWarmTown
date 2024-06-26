@@ -1,11 +1,12 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :toggle_like]
   before_action :set_group, only: [:new, :create, :edit, :update]
+  before_action :set_current_user_posts, only: [:index, :mypage]
 
   def index
-    @posts = current_user.posts.order(created_at: :desc).page(params[:page]).per(8)
+    @posts = @user_posts.order(created_at: :desc).page(params[:page]).per(8)
   end
-  
+
   def show
   end
 
@@ -28,7 +29,11 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @group ? group_path(@group) : post_path(@post), notice: '投稿が更新されました。'
+      if @group
+        redirect_to group_path(@group), notice: '投稿が更新されました。'
+      else
+        redirect_to post_path(@post), notice: '投稿が更新されました。'
+      end
     else
       render :edit
     end
@@ -43,16 +48,20 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to posts_path, alert: '投稿が見つかりません。'
   end
 
   def set_group
-    @group = Group.find_by(id: params[:group_id])
-    redirect_to groups_path, alert: 'グループが見つかりません。' if params[:group_id].present? && @group.nil?
+    @group = Group.find(params[:group_id]) if params[:group_id].present?
+  rescue ActiveRecord::RecordNotFound
+    @group = nil
+    redirect_to groups_path, alert: 'グループが見つかりません。' if params[:group_id].present?
   end
 
   def post_params
     params.require(:post).permit(:title, :content, :group_id, images: [])
+  end
+
+  def set_current_user_posts
+    @user_posts = current_user.posts
   end
 end
