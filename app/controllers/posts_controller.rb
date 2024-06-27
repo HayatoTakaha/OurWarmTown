@@ -1,10 +1,15 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:show, :index]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :toggle_like]
   before_action :set_group, only: [:new, :create, :edit, :update]
 
   def index
-    @posts = current_user.posts.order(created_at: :desc).page(params[:page]).per(8)
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @posts = @user.posts.order(created_at: :desc).page(params[:page]).per(8)
+    else
+      @posts = current_user.posts.order(created_at: :desc).page(params[:page]).per(8)
+    end
   end
   
   def show
