@@ -1,5 +1,8 @@
 # Our Warm Town
 
+## サイトイメージ
+![サイトイメージ](images/site_image.png)
+
 ## サイト概要
 ### サイトテーマ
 地域の人々がつながり、情報を共有するコミュニティサイト
@@ -25,10 +28,10 @@
 
 ## 設計書
 ### ER図
-![ER図](path_to_er_diagram_image)
+[ER図](https://drive.google.com/file/d/10PDpSMuXr4-7WeZAX7ve7dZb2zOZva69/view?usp=sharing)
 
 ### UIフロー
-![UIフロー](path_to_ui_flow_image)
+[UIフロー](https://drive.google.com/file/d/1XGqMGgIBAPEJd56zmqO3sbF201n24tOU/view?usp=sharing)
 
 ### アプリケーション詳細設計書
 [アプリケーション詳細設計書](https://docs.google.com/spreadsheets/d/1V-t8h41OUv9RRZTRTNjOHkDplOfxP-5RtS1QHrJ6XbI/edit?usp=sharing)
