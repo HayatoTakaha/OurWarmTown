@@ -12,6 +12,7 @@
     </div>
 
     <div class="col-md-9">
+      <p class="text-muted"><%= @group.created_at.strftime("%Y-%m-%d %H:%M") %></p> <!-- グループ作成日時の表示 -->
       <h2><%= @group.name %></h2>
       <p><%= @group.description %></p>
       <%= render 'group_post_actions', group: @group, is_member: @is_member %>

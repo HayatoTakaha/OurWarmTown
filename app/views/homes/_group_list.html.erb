@@ -7,6 +7,7 @@
         <img src="https://via.placeholder.com/100" alt="デフォルト画像" class="img-thumbnail mr-3" style="width: 100px; height: 100px;">
       <% end %>
       <div class="flex-grow-1">
+        <p class="text-muted mb-1"><%= group.created_at.strftime("%Y-%m-%d %H:%M") %></p> <!-- グループ作成日時の表示 -->
         <h6 class="mb-1"><%= group.name %></h6>
         <%= link_to group_path(group), class: 'btn btn-primary btn-sm btn-fixed-width mt-2' do %>
           <i class="fas fa-info-circle"></i> 詳細
