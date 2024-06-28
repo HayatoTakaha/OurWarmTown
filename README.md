@@ -1,7 +1,7 @@
 # Our Warm Town
 
 ## サイトイメージ
-![サイトイメージ](app/assets/images/site_image.png)
+![サイトイメージ](app/assets/images/site_image1.png)
 
 ## サイト概要
 ### サイトテーマ
