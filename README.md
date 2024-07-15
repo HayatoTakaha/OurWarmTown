@@ -42,6 +42,12 @@
 
 [テスト仕様書](https://docs.google.com/spreadsheets/d/1s_S5hFDQ_FxgU0cB8o0lVTwj988y8Sts/edit?usp=sharing&ouid=113613601177379518904&rtpof=true&sd=true)
 
+
+[インフラ設計書](https://docs.google.com/spreadsheets/d/1BvWCMSrVOtuWnoi0Uj5pGqQ1IGVmwOxTF-I0hzYsPPY/edit?usp=sharing)
+
+
+[AWS構成図](https://cacoo.com/diagrams/mYu36TEPqBHZpcGk/B645B)
+
 ## 開発環境
 - OS：Linux(CentOS)
 - 言語：HTML, CSS, JavaScript, Ruby, SQL
