@@ -7,6 +7,7 @@
       <th>ユーザー名</th>
       <th>内容</th>
       <th>作成日時</th>
+      <th>投稿</th>
       <th>操作</th>
     </tr>
   </thead>
@@ -17,6 +18,7 @@
         <td><%= comment.user ? comment.user.name : 'ユーザーなし' %></td>
         <td><%= comment.content %></td>
         <td><%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= link_to'元の投稿を見る', post_path(comment.post) %></td>
         <td>
           <%= link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm' %>
         </td>

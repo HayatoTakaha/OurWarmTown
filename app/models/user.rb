@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  validates :name, presence: true
   has_one_attached :profile_image
   # Devise modules
   devise :database_authenticatable, :registerable,
@@ -16,11 +17,11 @@ class User < ApplicationRecord
   def like(post)
     self.likes.find_or_create_by(post_id: post.id)
   end
-  
+
   def unlike(post)
     self.likes.find_by(post_id: post.id)&.destroy
   end
-  
+
   def liked?(post)
     likes.exists?(post_id: post.id)
   end
